@@ -1,6 +1,5 @@
 { self, inputs, ... }: {
 
-  # This is your system configuration entry-point
   flake.nixosConfigurations.HOSTNAME = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       self.nixosModules.HOSTNAMEModule
@@ -8,12 +7,9 @@
     ];
   };
 
-  # This is your configuration.nix, a place where you configure your system
-  # You can place it in a separate file.
   flake.nixosModules.HOSTNAMEModule = { pkgs, ... }: {
-    environment.systemPackages = [
-      pkgs.vim
-      pkgs.firefox
+    environment.systemPackages with pkgs = [
+
     ];
 
     users.users.USERNAME = {

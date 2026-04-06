@@ -22,10 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
-    secrets = {
-        url = "git+ssh://git@github.com/SamIAm789/secrets?shallow=1";
-        flake = false;
-    };
+    secrets.url = "git+ssh://git@github.com/SamIAm789/secrets"
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

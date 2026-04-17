@@ -45,15 +45,10 @@
 
     services.flatpak.enable = true;
 
-    # needed for hyprlock
-    security.pam.services.hyprlock = {};
-
     fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
-    #polkit
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.hyprland.enableGnomeKeyring = true;
-    security.polkit.enable=true;
+# needed for hyprlock
+    security.pam.services.hyprlock = {};
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";

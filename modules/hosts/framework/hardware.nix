@@ -1,10 +1,9 @@
+{ inputs, ... }: {
 
+  flake.modules.nixos.framework-hardware = { config, lib, pkgs, modulesPath, ... }: {
 
-  { config, lib, pkgs, modulesPath, ... }:
-
-  {
-    imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    imports = [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
     boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
@@ -23,8 +22,8 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-    swapDevices =
-    [ { device = "/dev/disk/by-uuid/2bfb901a-b1b4-4a92-8abe-39513ccfa3f1"; }
+    swapDevices = [
+      { device = "/dev/disk/by-uuid/2bfb901a-b1b4-4a92-8abe-39513ccfa3f1"; }
     ];
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -36,4 +35,5 @@
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    };
   }

@@ -1,5 +1,5 @@
 {
-  flake.module.homeManager.hypridle = {
+  flake.modules.homeManager.hypridle = {
 
 
     services.hypridle = {

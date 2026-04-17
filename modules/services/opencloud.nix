@@ -1,0 +1,18 @@
+{
+
+  flake.modules.nixos.opencloud = {
+
+    services.opencloud = {
+      enable = true;
+      address = "0.0.0.0";
+      url = "100.100.0.4:9200";
+      port = 9200;
+      stateDir = "/stuff/opencloud";
+      environment = {
+        OC_INSECURE = "true";
+      };
+    };
+
+    networking.firewall.allowedTCPPorts = [ 9200 ];
+  };
+}

@@ -18,10 +18,7 @@ in
     };
   };
 
-  imports = [
-    inputs.home-manager.flakeModules.home-manager
-    inputs.home-manager.nixosModules.home-manager
-  ];
+  imports = [ inputs.home-manager.flakeModules.home-manager ];
 
   flake.modules.nixos.home-manager = {
     imports = [

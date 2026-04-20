@@ -20,7 +20,7 @@
           { nixpkgs.hostPlatform = lib.mkDefault system; }
         ];
       };
-    };
+     };
 
     mkDarwin = system: name: {
       ${name} = inputs.nix-darwin.lib.darwinSystem {

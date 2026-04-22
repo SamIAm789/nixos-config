@@ -1,12 +1,14 @@
-# nix/modules/nebula.nix
-{ inputs, config, lib, pkgs, ... }:
+{ 
+
+  flake.modules.nixos.nebula = {
+    inputs, config, lib, pkgs, ... }:
 
 let
   host = config.networking.hostName;
 
   isLighthouse = host == "lighthouse";
 
-  sopsFile = /secrets/nebula.yaml;
+  sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
 
   nebulaUser = "nebula-pertaka";
   nebulaGroup = "nebula-pertaka";
@@ -63,7 +65,7 @@ in
       cert = secret "${host}/cert";
       key  = secret "${host}/key";
 
-      staticHostMap = {
+      staticHostMap = lib.mkIf (!isLighthouse) {
         "100.100.0.1" = [ lighthouseIP ];
       };
 

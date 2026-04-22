@@ -1,10 +1,6 @@
-# nix/aspects/nebula.nix
-{ lib, ... }:
 {
   config.flake.factory.nebula-host =
-    { isLighthouse ? false
-    , secretsPrefix ? "nebula"
-    }:
+    { isLighthouse ? false }:
 
     { config, pkgs, ... }:
 
@@ -17,7 +13,7 @@
       listenPort = 4242;
 
       # Shared SOPS file from private repo
-      sopsFile = /secrets/nebula.yaml;
+      sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
 
       # Helper for host-specific secrets
       secret = name:

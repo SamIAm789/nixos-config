@@ -2,23 +2,28 @@
 { lib, ... }:
 {
   config.flake.factory.nebula-host =
-    { hostName
-    , isLighthouse ? false
+    { isLighthouse ? false
     , secretsPrefix ? "nebula"
-    , sopsFile
     }:
 
     { config, pkgs, ... }:
 
     let
+      # Hostname comes from system config
+      hostName = config.networking.hostName;
+
+      # Hardcoded network + port
       networkName = "pertaka";
       listenPort = 4242;
 
-      # host-specific secret path helper
+      # Shared SOPS file from private repo
+      sopsFile = /secrets/nebula.yaml;
+
+      # Helper for host-specific secrets
       secret = name:
         config.sops.secrets."${secretsPrefix}/${hostName}/${name}".path;
 
-      # lighthouse IP must be read as a string
+      # Lighthouse IP must be read as a literal string
       lighthouseIP =
         builtins.readFile
           config.sops.secrets."${secretsPrefix}/lighthouse/ip".path;
@@ -27,12 +32,13 @@
     {
       # --- SOPS secrets ---
       sops.secrets = {
+        # Host certs
         "${secretsPrefix}/${hostName}/ca"      = { inherit sopsFile; };
         "${secretsPrefix}/${hostName}/cert"    = { inherit sopsFile; };
         "${secretsPrefix}/${hostName}/key"     = { inherit sopsFile; };
         "${secretsPrefix}/${hostName}/hostmap" = { inherit sopsFile; };
 
-        # shared lighthouse IP secret
+        # Shared lighthouse IP secret
         "${secretsPrefix}/lighthouse/ip" = {
           inherit sopsFile;
           owner = "root";

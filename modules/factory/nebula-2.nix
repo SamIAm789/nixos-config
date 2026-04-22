@@ -1,45 +1,23 @@
 
-# nix/aspects/nebula.nix
-{ lib, ... }:
 {
   config.flake.factory.nebula-host =
-    { isLighthouse ? false
-    , secretsPrefix ? "nebula"
-    }:
+    { isLighthouse ? false }:
 
-    { config, pkgs, ... }:
+    { config, pkgs, inputs, ... }:
 
     let
-      # Hostname from system config
       host = config.networking.hostName;
-
-      # Hardcoded network + port
       networkName = "pertaka";
       listenPort = 4242;
 
-      # SOPS file from private repo
-      sopsFile = /secrets/nebula.yaml;
+      sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
 
-      # Nebula user/group
       nebulaUser = "nebula-pertaka";
       nebulaGroup = "nebula-pertaka";
 
-      # List of secrets exactly like your working module
-      nebulaSecrets = [
-        "ca_crt"
-        "backup-server_crt"
-        "backup-server_key"
-        "framework_crt"
-        "framework_key"
-        "haos_crt"
-        "haos_key"
-        "server_crt"
-        "server_key"
-      ];
-
       # Helper to get a secret path
-      secretPath = name:
-        config.sops.secrets."nebula_${name}".path;
+      secret = name:
+        config.sops.secrets."nebula/${name}".path;
 
       # Lighthouse IP stored in SOPS and read as a literal string
       lighthouseIP =
@@ -48,7 +26,6 @@
 
     in
     {
-      # --- SOPS secrets (same as your module, but generated) ---
       sops.secrets =
         builtins.listToAttrs (map (name: {
           name = "nebula_${name}";

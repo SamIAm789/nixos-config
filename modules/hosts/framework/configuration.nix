@@ -5,6 +5,7 @@
   flake.modules.nixos.framwork = {
     imports = with inputs.self.modules.nixos; [
       framework-hardware
+      base
     ];
   };
 }

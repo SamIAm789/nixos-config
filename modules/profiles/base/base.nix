@@ -6,6 +6,7 @@
       fish
       nebula
       nix
+      ssh-keys
       timezone
     ];
 

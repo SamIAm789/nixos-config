@@ -2,6 +2,7 @@
 
   flake.modules.nixos.base = {
     imports = with inputs.self.modules.base; [
+      boot
       firmware
       fish
       nebula

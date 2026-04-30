@@ -5,7 +5,7 @@
       enable = true;
       package = null;
       portalPackage = null;
-      systemd.enable = false;
+      systemd.enable = false; # conflicts with uwsm in nixos module
     };
 
     wayland.windowManager.hyprland.settings = { 

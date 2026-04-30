@@ -1,7 +1,14 @@
 {
   flake.modules.homeManager.hyprlandSettings = {
 
-   wayland.windowManager.hyprland.settings = { 
+    wayland.windowManager.hyprland = {
+      enable = true;
+      package = null;
+      portalPackage = null;
+      systemd.enable = false;
+    };
+
+    wayland.windowManager.hyprland.settings = { 
 
       monitor = [
         ",preferred, auto, auto"

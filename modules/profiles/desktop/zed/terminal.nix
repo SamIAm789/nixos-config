@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.zed = {
-
-    programs.zed-editor.userSettings.terminal = {
-        alternate_scroll = "off";
+  alternate_scroll = "off";
   blinking = "off";
   copy_on_select = false;
   dock = "bottom";
@@ -17,5 +14,4 @@
   };
   font_family = "0xProto Nerd Font Mono";
   working_directory = "current_project_directory";
-};
 }

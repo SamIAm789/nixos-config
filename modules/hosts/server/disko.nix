@@ -56,7 +56,7 @@
             type = "zfs_fs";
             mountpoint = "/home";
             # Used by services.zfs.autoSnapshot options.
-            options."com.sun:auto-snapshot" = "true";
+            options."com.sun:auto-snapshot" = "false";
           };
           "local/nix" = {
             type = "zfs_fs";

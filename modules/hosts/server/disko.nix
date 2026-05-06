@@ -5,9 +5,9 @@
     disk = {
       root = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V_1";
         content = {
-          type = "got";
+          type = "gpt";
           partitions = {
             ESP = {
               size = "1G";
@@ -29,7 +29,23 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "zroot";
+                pool = "server";
+              };
+            };
+          };
+        };
+      };
+      vmstore = {
+        type = "disk";
+        device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V";
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "vmstore";
               };
             };
           };
@@ -75,6 +91,24 @@
             mountpoint = "/";
             options."com.sun:auto-snapshot" = "false";
             postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
+          };
+        };
+      };
+      vmstore = {
+        type = "zpool";
+        rootFsOptions = {
+          acltype = "posixacl";
+          atime = "off";
+          compression = "zstd";
+          mountpoint = "none";
+          xattr = "sa";
+        };
+        options.ashift = "12";
+        
+        datasets = {
+          "microvms" = {
+            type = "zfs_fs";
+            mountpoint = "/var/lib/microvms"
           };
         };
       };

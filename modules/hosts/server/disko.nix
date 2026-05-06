@@ -100,8 +100,8 @@
           acltype = "posixacl";
           atime = "off";
           compression = "zstd";
-          mountpoint = "none";
           xattr = "sa";
+          recordsize = "64k"
         };
         options.ashift = "12";
         

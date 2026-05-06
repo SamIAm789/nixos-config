@@ -101,7 +101,7 @@
           atime = "off";
           compression = "zstd";
           xattr = "sa";
-          recordsize = "64k"
+          recordsize = "64k" # https://klarasystems.com/articles/zfs-virtualization-storage-backend-for-pros/
         };
         options.ashift = "12";
         

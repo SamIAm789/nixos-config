@@ -17,15 +17,6 @@
 
         "/persist/containers"
 
-        # Rootless Podman
-        "/home/sam/.local/share/containers"
-        "/home/sam/.config/containers"
-
-        # Rootless Quadlet
-        "/home/sam/.config/systemd/user"
-
-        # SSH identity
-        "/home/sam/.ssh"
 
         # Optional: persist root home
         "/root"
@@ -41,8 +32,19 @@
 
       files = [
         "/etc/machine-id"
-        "/home/sam/.config/sops/age/keys.txt"
       ];
+
+      users.sam = {
+        directories = [
+          ".ssh"
+          ".config/systemd/user"
+          ".config/containers"
+          ".local/share/containers"
+        ];
+        files = [
+          "/home/sam/.config/sops/age/keys.txt"
+        ];
+      };
     };
   };
 }

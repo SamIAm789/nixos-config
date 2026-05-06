@@ -1,37 +1,48 @@
-environment.persistence."/persist" = {
-  hideMounts = true;
+{
+  flake.modules.nixos.impermanence = {
 
-  directories = [
-    # System identity
-    "/var/lib/systemd"
-    "/var/lib/nixos"
+    environment.persistence."/persist" = {
+      hideMounts = true;
 
-    # Logs
-    "/var/log"
+      directories = [
+        # System identity
+        "/var/lib/systemd"
+        "/var/lib/nixos"
 
-    # Rootless Podman (mapped to tank/local/home/sam/podman)
-    "/home/sam/.local/share/containers"
-    "/home/sam/.config/containers"
+        # Logs
+        "/var/log"
 
-    # Rootless Quadlet (mapped to tank/local/home/sam/quadlet)
-    "/home/sam/.config/systemd/user"
+        # sops-nix host AGE keys
+        "/var/lib/sops-nix"
 
-    # SSH identity (mapped to tank/local/home/sam/ssh)
-    "/home/sam/.ssh"
+        "/persist/containers"
 
-    # Optional: persist root home
-    "/root"
+        # Rootless Podman
+        "/home/sam/.local/share/containers"
+        "/home/sam/.config/containers"
 
-    # Host SSH keys
-    {
-      directory = "/etc/ssh";
-      user = "root";
-      group = "root";
-      mode = "0700";
-    }
-  ];
+        # Rootless Quadlet
+        "/home/sam/.config/systemd/user"
 
-  files = [
-    "/etc/machine-id"
-  ];
-};
+        # SSH identity
+        "/home/sam/.ssh"
+
+        # Optional: persist root home
+        "/root"
+
+        # Host SSH keys
+        {
+          directory = "/etc/ssh";
+          user = "root";
+          group = "root";
+          mode = "0700";
+        }
+      ];
+
+      files = [
+        "/etc/machine-id"
+        "/home/sam/.config/sops/age/keys.txt"
+      ];
+    };
+  };
+}

@@ -92,6 +92,11 @@
             options."com.sun:auto-snapshot" = "false";
             postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
           };
+          "local/containers" = {
+            type = "zfs_fs";
+            mountpoint = "/persist/containers";
+            options."com.sun:auto-snapshot" = "true";
+          };
         };
       };
       vmstore = {
@@ -105,11 +110,11 @@
           recordsize = "64k" # https://klarasystems.com/articles/zfs-virtualization-storage-backend-for-pros/
         };
         options.ashift = "12";
-        
+
         datasets = {
           "microvms" = {
             type = "zfs_fs";
-            mountpoint = "/var/lib/microvms"
+            mountpoint = "/var/lib/microvms";
           };
         };
       };

@@ -29,7 +29,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "server";
+                pool = "rpool";
               };
             };
           };
@@ -53,7 +53,7 @@
       };
     };
     zpool = {
-      server = {
+      rpool = {
         type = "zpool";
         rootFsOptions = {
           # https://wiki.archlinux.org/title/Install_Arch_Linux_on_ZFS

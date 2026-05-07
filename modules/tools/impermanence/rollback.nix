@@ -13,6 +13,6 @@
     path = with pkgs; [ zfs ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
-    script = "zfs rollback -r server/local/root@blank";
+    script = "zfs rollback -r rpool/local/root@blank";
   };
 }

@@ -1,21 +1,21 @@
 {
   fileSystems."/" = {
-    device = "server/local/root";
+    device = "rpool/local/root";
     fsType = "zfs";
   };
   
   fileSystems."/nix" = {
-    device = "server/local/nix";
+    device = "rpool/local/nix";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "server/local/home";
+    device = "rpool/local/home";
     fsType = "zfs";
   };
 
   fileSystems."/persist" = {
-    device = "server/local/persist";
+    device = "rpool/local/persist";
     fsType = "zfs";
     neededForBoot = true;
   };

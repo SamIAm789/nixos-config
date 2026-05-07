@@ -90,7 +90,7 @@
             type = "zfs_fs";
             mountpoint = "/";
             options."com.sun:auto-snapshot" = "false";
-            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^server/local/root@blank$' || zfs snapshot server/local/root@blank";
           };
           "local/containers" = {
             type = "zfs_fs";

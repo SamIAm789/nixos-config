@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.impermanence = {
+  flake.modules.nixos.impermanence-server = {
 
     environment.persistence."/persist" = {
       hideMounts = true;

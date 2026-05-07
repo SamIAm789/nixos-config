@@ -1,6 +1,8 @@
 {
   flake.modules.nixos.hyprland = {
 
+    # start hyprland with "uwsm start hyprland desktop"
+
     programs.hyprland = {
       enable = true;
       withUWSM = true;

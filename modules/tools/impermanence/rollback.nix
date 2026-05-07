@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.impermanence= {
+  flake.modules.nixos.impermanence= { pkgs. ... }: {
 
 # Enable systemd in initrd
   boot.initrd.systemd.enable = true;

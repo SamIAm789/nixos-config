@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.zfs = 
+  flake.modules.nixos.zfs = { config, ... }:
 
   let
     hash = builtins.hashString "sha256" config.networking.hostName;

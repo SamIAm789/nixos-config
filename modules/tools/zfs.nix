@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.zfs = { config, ... }:
+  flake.modules.nixos.zfs = { config, lib, ... }:
 
   let
     hash = builtins.hashString "sha256" config.networking.hostName;
@@ -12,7 +12,7 @@
       supportedFilesystems = [ "zfs" ];
       zfs.forceImportRoot = false;
     };
-    networking.hostId = hostId;
+    networking.hostId = lib.mkDefault hostId;
     services.zfs = {
       autoScrub.enable = true;
       trim.enable = true;

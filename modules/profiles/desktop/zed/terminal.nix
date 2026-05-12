@@ -1,17 +1,21 @@
 {
-  alternate_scroll = "off";
-  blinking = "off";
-  copy_on_select = false;
-  dock = "bottom";
-  detect_venv = {
-    on = {
-      directories = [ ".env" "env" ".venv" "venv" ];
-      activate_script = "default";
+  flake.modules.homeManager.zed = {
+    programs.zed-editor.userSettings.settings.termial = {
+      alternate_scroll = "off";
+      blinking = "off";
+      copy_on_select = false;
+      dock = "bottom";
+      detect_venv = {
+        on = {
+          directories = [ ".env" "env" ".venv" "venv" ];
+          activate_script = "default";
+        };
+      };
+      env = {
+        TERM = "kitty";
+      };
+      font_family = "0xProto Nerd Font Mono";
+      working_directory = "current_project_directory";
     };
   };
-  env = {
-    TERM = "kitty";
-  };
-  font_family = "0xProto Nerd Font Mono";
-  working_directory = "current_project_directory";
 }

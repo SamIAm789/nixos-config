@@ -9,6 +9,7 @@
          show_hidden = true;
         };
       };
-    enableFishIntegration = true;
+      enableFishIntegration = true;
+    };
   };
 }

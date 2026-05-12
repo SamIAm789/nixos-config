@@ -1,19 +1,31 @@
-{ inputs, ... }: {
+{
+  inputs,
+  ...
+}:
+{
 
-  flake.modules.nixos.base = {
-    imports = with inputs.self.modules.base; [
-      boot
-      firmware
-      fish
-      nebula
-      nix
-      ssh-keys
-      timezone
-    ];
+  flake.modules.nixos.base =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      imports = with inputs.self.modules.nixos; [
+        boot
+        firmware
+        fish
+        home-manager
+        nebula
+        nix
+        sam
+        ssh-keys
+        sops
+        timezone
+      ];
 
-    environment.systemPackages = with pkgs; [
-      fzf
-      git
-    ];
-  };
+      environment.systemPackages = with pkgs; [
+        fzf
+        git
+      ];
+    };
 }

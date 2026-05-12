@@ -1,7 +1,11 @@
-{ self, ... }: {
-  flake.modules.nixos.server = { lib, config, ... }: {
+{
+  inputs,
+  ...
+}:
+{
+  flake.modules.nixos.server = {
 
-    imports = with self.nixos; [
+    imports = with inputs.self.nixos; [
 
     ];
 

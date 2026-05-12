@@ -1,13 +1,18 @@
 {
-  flake.modules.nixos.desktopPrograms = {
+  flake.modules.nixos.desktopPrograms =
+  {
+    pkgs,
+    ...
+  }:
+  {
+
     environment.systemPackages = with pkgs; [
       kitty
       swaynotificationcenter
-      #hyprpolkitagent
       nautilus
       bluetuith
     ];
 
     programs.kdeconnect.enable = true;
-  }
+  };
 }

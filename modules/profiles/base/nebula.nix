@@ -1,6 +1,12 @@
-{ 
-
-  flake.modules.nixos.nebula = { inputs, config, lib, pkgs, ... }:
+{
+  flake.modules.nixos.nebula =
+    {
+      inputs,
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
 
     let
       host = config.networking.hostName;
@@ -85,5 +91,5 @@
 
         relays = lib.mkIf (!isLighthouse) [ "100.100.0.1" ];
       };
-   };
+    };
 }

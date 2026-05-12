@@ -1,8 +1,12 @@
-{ inputs, ... }: {
+{
+  inputs,
+  ...
+}:
+{
 
   flake.nixosConfigurations = inputs.self.lib.mkNixos "x86_64-linux" "framework";
 
-  flake.modules.nixos.framwork = {
+  flake.modules.nixos.framework = {
     imports = with inputs.self.modules.nixos; [
       framework-hardware
       base

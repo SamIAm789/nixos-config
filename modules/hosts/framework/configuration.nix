@@ -10,6 +10,7 @@
     imports = with inputs.self.modules.nixos; [
       framework-hardware
       base
+      hyprland
     ];
 
 

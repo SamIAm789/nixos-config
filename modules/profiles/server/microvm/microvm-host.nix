@@ -6,7 +6,12 @@
     };
   };
 
-  flake.modules.nixos.microvm-host.nix = {
+  flake.modules.nixos.microvm-host.nix =
+  {
+    lib,
+    ...
+  }:
+  {
     microvm.host.enable = true;
 
     networking = {

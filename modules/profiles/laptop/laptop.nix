@@ -9,6 +9,6 @@
       dbus
       hardware
       pipewire
-    ]
+    ];
   };
 }

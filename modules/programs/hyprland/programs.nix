@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.desktopPrograms =
+  flake.modules.nixos.hyprland =
   {
     pkgs,
     ...
@@ -12,7 +12,5 @@
       nautilus
       bluetuith
     ];
-
-    programs.kdeconnect.enable = true;
   };
 }

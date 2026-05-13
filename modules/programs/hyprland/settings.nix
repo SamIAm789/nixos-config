@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprlandSettings = {
+  flake.modules.homeManager.hyprland = {
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -8,7 +8,7 @@
       systemd.enable = false; # conflicts with uwsm in nixos module
     };
 
-    wayland.windowManager.hyprland.settings = { 
+    wayland.windowManager.hyprland.settings = {
 
       monitor = [
         ",preferred, auto, auto"

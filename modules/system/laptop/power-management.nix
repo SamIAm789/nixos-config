@@ -12,7 +12,7 @@
         enable = true;
         pd.enable = true;
       };
-      upower.enable = true;
-    }; # needed for battery status icons
+      upower.enable = true; # needed for battery status icons
+    };
   };
 }

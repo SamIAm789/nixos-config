@@ -1,4 +1,11 @@
 {
+  flake-file.inputs = {
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   flake.modules.nixos.microvm-host.nix = {
     microvm.host.enable = true;
 

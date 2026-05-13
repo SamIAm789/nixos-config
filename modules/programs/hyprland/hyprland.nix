@@ -3,12 +3,30 @@
   ...
 }:
 {
+
+  flake-file.inputs = {
+    hyprland.url = "github:hyprwm/Hyprland";
+  };
+
   flake.modules.nixos.hyprland =
     {
       pkgs,
       ...
     }:
     {
+
+      imports =
+        with inputs.self.modules.nixos;
+        [
+          ashell
+          fuzzel
+          hypridle
+          hyprlock
+          wpaperd
+        ];
+        ++ (with inputs.self.modules.homeManager; [
+          hyprland
+        ]);
 
     # start hyprland with "uwsm start hyprland desktop"
 
@@ -25,18 +43,7 @@
       #  extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
       #};
 
-      services = {
-        upower.enable = true;
-        tlp.enable = true;
-      };
-
-      # general desktop optimisations
-      services.dbus.implementation = "broker";
       # networking.networkmanager.wifi.backend = "iwd";
-
-      services.flatpak.enable = true;
-
-      fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 
       environment.sessionVariables = {
         NIXOS_OZONE_WL = "1";

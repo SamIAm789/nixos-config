@@ -1,4 +1,12 @@
 {
+  inputs,
+  ...
+}:
+{
+  imports = [
+    inputs.self.modules.nixos.disko
+  ];
+
   # https://github.com/nix-community/disko-templates/tree/main
 
   disko.devices = {

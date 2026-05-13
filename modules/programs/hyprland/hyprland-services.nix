@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprlandServices = {
+  flake.modules.homeManager.hyprland = {
 
     services = {
       cliphist.enable = true;

@@ -23,7 +23,7 @@
           hypridle
           hyprlock
           wpaperd
-        ];
+        ]
         ++ (with inputs.self.modules.homeManager; [
           hyprland
         ]);

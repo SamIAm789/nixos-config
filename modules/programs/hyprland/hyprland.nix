@@ -26,6 +26,11 @@
         ]
         ++ (with inputs.self.modules.homeManager; [
           hyprland
+          ashell
+          fuzzel
+          hypridle
+          hyprlock
+          wpaperd
         ]);
 
     # start hyprland with "uwsm start hyprland desktop"

@@ -27,7 +27,6 @@
           User sam
           HostName 10.25.0.30
 
-
         Host *
           ForwardAgent yes
           AddKeysToAgent yes

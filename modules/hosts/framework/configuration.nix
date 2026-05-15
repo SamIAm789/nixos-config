@@ -10,11 +10,8 @@
     imports = with inputs.self.modules.nixos; [
       framework-hardware
       base
-<<<<<<< HEAD
       hyprland
-=======
       laptop
->>>>>>> 2e5b22e (flake-parts)
     ];
 
     services.fprintd.enable = true;

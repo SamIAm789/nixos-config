@@ -15,5 +15,9 @@
       ssh-agent
       zed
     ];
+
+    environment.systemPackages = with pkgs; [
+      libreoffice-fresh
+    ];
   };
 }

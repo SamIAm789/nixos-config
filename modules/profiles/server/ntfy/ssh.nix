@@ -2,7 +2,6 @@
   flake.modules.nixos.ntfy =
   {
     config,
-    lib,
     pkgs,
     ...
   }:

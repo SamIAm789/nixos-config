@@ -1,5 +1,11 @@
 {
-  flake.modules.nixos.ntfy = {
+  flake.modules.nixos.ntfy =
+  {
+    pkgs,
+    lib,
+    ...
+  }:
+  {
     systemd.services = lib.mkOption {
       type = with lib.types; attrsOf (
         submodule {

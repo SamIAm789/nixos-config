@@ -24,10 +24,10 @@
             border = "94e2d5ff";
           };
         };
-        home.packages = with pkgs;
-        [
-          catppuccin-cursors.frappeDark
-        ];
       };
+
+      home.packages = with pkgs; [
+        catppuccin-cursors.frappeDark
+      ];
     };
 }

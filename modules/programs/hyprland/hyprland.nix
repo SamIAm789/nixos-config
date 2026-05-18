@@ -18,20 +18,16 @@
       imports =
         with inputs.self.modules.nixos;
         [
-          ashell
-          fuzzel
-          hypridle
           hyprlock
-          wpaperd
-        ]
-        ++ (with inputs.self.modules.homeManager; [
-          hyprland
-          ashell
-          fuzzel
-          hypridle
-          hyprlock
-          wpaperd
-        ]);
+        ];
+
+      home-manager.sharedModules = with inputs.self.modules.homeManager; [
+        hyprland
+        ashell
+        fuzzel
+        hypridle
+        wpaperd
+      ];
 
     # start hyprland with "uwsm start hyprland desktop"
 

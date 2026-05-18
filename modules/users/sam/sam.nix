@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   ...
 }:
 
@@ -10,9 +9,7 @@ in
 {
   flake.modules.nixos.${username} =
     {
-      pkgs,
       config,
-      lib,
       ...
     }:
     {
@@ -25,7 +22,6 @@ in
       users.users."${username}" = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets.sam.path;
-        shell = pkgs.fish;
         extraGroups = [
           "wheel"
         ];
@@ -38,7 +34,6 @@ in
   flake.modules.homeManager."${username}" =
     {
       pkgs,
-      config,
       osConfig,
       ...
     }:

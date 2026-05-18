@@ -3,7 +3,12 @@
   ...
 }:
 {
-  flake.modules.nixos.general-desktop = {
+  flake.modules.nixos.general-desktop =
+  {
+    pkgs,
+    ...
+  }:
+  {
     imports = with inputs.self.modules.nixos; [
       dbus
       firefox
@@ -13,11 +18,14 @@
       pipewire
       power-management
       ssh-agent
-      zed
     ];
 
     environment.systemPackages = with pkgs; [
       libreoffice-fresh
+    ];
+
+    home-manager.sharedModules = with inputs.self.modules.homeManager; [
+      zed
     ];
   };
 }

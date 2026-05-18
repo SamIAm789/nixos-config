@@ -6,11 +6,15 @@
 
   flake.nixosConfigurations = inputs.self.lib.mkNixos "x86_64-linux" "framework";
 
-  flake.modules.nixos.framework = {
+  flake.modules.nixos.framework =
+  {
+    pkgs,
+    ...
+  }:
+  {
     imports = with inputs.self.modules.nixos; [
       framework-hardware
       base
-      hyprland
       laptop
     ];
 

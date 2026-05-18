@@ -18,9 +18,7 @@
       # Helper for secrets
       secret = name: config.sops.secrets."nebula/${name}".path;
 
-      lighthouseIP =
-        builtins.readFile
-          config.sops.secrets."nebula/lighthouse_ip".path;
+      lighthouseIP = "161.33.225.147:4242";
 
     in
     {

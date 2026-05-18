@@ -1,5 +1,6 @@
 {
   inputs,
+  self,
   ...
 }:
 
@@ -45,7 +46,7 @@ in
       ];
       home.username = "${username}";
       home.packages = with pkgs; [
-
+        spotify
       ];
       home.stateVersion = osConfig.system.stateVersion;
     };

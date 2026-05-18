@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server-filesystem = {
+  flake.modules.nixos.server-filesystems = {
 
     fileSystems."/" = {
       device = "rpool/local/root";

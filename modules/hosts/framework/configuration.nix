@@ -16,6 +16,7 @@
       framework-hardware
       base
       laptop
+      sam
     ];
 
     services.fprintd.enable = true;

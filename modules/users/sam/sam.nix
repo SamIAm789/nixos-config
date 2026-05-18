@@ -7,7 +7,9 @@ let
   username = "sam";
 in
 {
-  flake.modules.nixos.${username} =
+  # flake.homeConfigurations = inputs.self.lib.mkHomeManager "x86_64-linux" "sam";
+
+  flake.modules.nixos."${username}" =
     {
       config,
       ...

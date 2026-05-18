@@ -1,5 +1,8 @@
-{ inputs, config, ... }:
-
+{
+  inputs,
+  config,
+  ...
+}:
 let
   home-manager-config =
     { lib, ... }:

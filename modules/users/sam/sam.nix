@@ -16,6 +16,11 @@ in
       ...
     }:
     {
+      imports = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.sops-nix.nixosModules.sops
+      ];
+
       home-manager.users."${username}" = {
         imports = [
           inputs.self.modules.homeManager."${username}"

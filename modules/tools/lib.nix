@@ -17,7 +17,10 @@
       ${name} = inputs.nixpkgs.lib.nixosSystem {
         modules = [
           inputs.self.modules.nixos.${name}
-          { nixpkgs.hostPlatform = lib.mkDefault system; }
+          {
+            nixpkgs.hostPlatform = lib.mkDefault system;
+            networking.hostName = lib.mkDefault name;
+          }
         ];
       };
     };

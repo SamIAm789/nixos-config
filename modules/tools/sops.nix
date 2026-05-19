@@ -1,4 +1,9 @@
-{ inputs, ... }: {
+{
+  inputs,
+  self,
+  ...
+}:
+{
 
   flake-file.inputs = {
     sops-nix = {
@@ -25,7 +30,7 @@
         generateKey = true;
       };
 
-      defaultSopsFile = "?{inputs.secrets}/secrets/secrets.yaml";
+      defaultSopsFile = inputs.secrets + "/secrets/secrets.yaml";
       defaultSopsFormat = "yaml";
     };
   };

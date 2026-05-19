@@ -11,6 +11,7 @@
       disko
       ./disk-config.nix
       sam
+      server
       server-filesystems
       server-hardware
     ];

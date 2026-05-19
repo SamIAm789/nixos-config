@@ -1,7 +1,10 @@
 {
+  inputs,
+  ...
+}:
+{
   flake.modules.nixos.nebula =
     {
-      inputs,
       config,
       lib,
       pkgs,
@@ -14,40 +17,30 @@
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
       nebulaUser = "nebula-pertaka";
       nebulaGroup = "nebula-pertaka";
-
-      # Helper for secrets
-      secret = name: config.sops.secrets."nebula/${name}".path;
-
       lighthouseIP = "161.33.225.147:4242";
 
     in
     {
+
       environment.systemPackages = [ pkgs.nebula ];
 
       # --- SOPS secrets ---
       sops.secrets = {
-        "nebula/ca" = {
+        "nebula_ca_crt" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
           mode = "0400";
         };
 
-        "nebula/${host}/cert" = {
+        "nebula_${host}_crt" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
           mode = "0400";
         };
 
-        "nebula/${host}/key" = {
-          inherit sopsFile;
-          owner = nebulaUser;
-          group = nebulaGroup;
-          mode = "0400";
-        };
-
-        "nebula/lighthouse_ip" = {
+        "nebula_${host}_key" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
@@ -56,9 +49,9 @@
       };
 
       services.nebula.networks.pertaka = {
-        ca   = secret "ca";
-        cert = secret "${host}/cert";
-        key  = secret "${host}/key";
+        ca   = config.sops.secrets."nebula_ca_crt".path;
+        cert = config.sops.secrets."nebula_${host}_crt".path;
+        key  = config.sops.secrets."nebula_${host}_key".path;
 
         staticHostMap = lib.mkIf (!isLighthouse) {
           "100.100.0.1" = [ lighthouseIP ];

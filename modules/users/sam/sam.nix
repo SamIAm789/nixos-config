@@ -42,7 +42,6 @@ in
   flake.modules.homeManager."${username}" =
     {
       pkgs,
-      osConfig,
       ...
     }:
     {
@@ -53,6 +52,6 @@ in
       home.packages = with pkgs; [
         spotify
       ];
-      home.stateVersion = osConfig.system.stateVersion;
+      home.stateVersion = "25.05";
     };
 }

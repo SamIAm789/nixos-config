@@ -21,12 +21,8 @@
           hyprlock
         ];
 
-      home-manager.sharedModules = with inputs.self.modules.homeManager; [
-        hyprland
-        ashell
-        fuzzel
-        hypridle
-        wpaperd
+      home-manager.sharedModules = [
+        inputs.self.modules.homeManager.hyprland
       ];
 
     # start hyprland with "uwsm start hyprland desktop"

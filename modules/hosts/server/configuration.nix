@@ -11,11 +11,13 @@
       disko
       ./disk-config.nix
       sam
-      server
+      server-profile
       server-filesystems
       server-hardware
     ];
 
     networking.hostId = "6c0ee112";
+
+    system.stateVersion = "25.11";
   };
 }

@@ -1,4 +1,8 @@
 {
+  inputs,
+  ...
+}:
+{
   flake-file.inputs = {
     microvm = {
       url = "github:microvm-nix/microvm.nix";
@@ -6,12 +10,16 @@
     };
   };
 
-  flake.modules.nixos.microvm-host.nix =
+  flake.modules.nixos.microvm-host =
   {
     lib,
     ...
   }:
   {
+    imports = [
+      inputs.microvm.nixosModules.host
+    ];
+
     microvm.host.enable = true;
 
     networking = {

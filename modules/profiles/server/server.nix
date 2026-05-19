@@ -10,6 +10,7 @@
       network
       openssh
       sanoid
+      zfs
     ];
   };
 }

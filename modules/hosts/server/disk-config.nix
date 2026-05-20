@@ -91,7 +91,7 @@
               options."com.sun:auto-snapshot" = "false";
               postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^server/local/root@blank$' || zfs snapshot server/local/root@blank";
             };
-            "local/containers" = {
+            "local/safe/containers" = {
               type = "zfs_fs";
               mountpoint = "/persist/containers";
               options."com.sun:auto-snapshot" = "true";
@@ -113,7 +113,7 @@
           datasets = {
             "microvms" = {
               type = "zfs_fs";
-              mountpoint = "/var/lib/microvms";
+              mountpoint = "/persist/microvms";
             };
           };
         };

@@ -2,7 +2,7 @@
   flake.modules.nixos.server = {
 
     preservation = {
-      enable = false;
+      enable = true;
 
       preserveAt."/persist" = {
         directories = [
@@ -45,19 +45,6 @@
             "/home/sam/.config/sops/age/keys.txt"
           ];
         };
-
-
-        # Preserve user files
-        # users.yurii = {
-        #   directories = [
-        #     ".ssh"
-        #     ".mozilla"
-        #   ];
-        #
-        #   files = [
-        #
-        #   ];
-        # };
       };
     };
   };

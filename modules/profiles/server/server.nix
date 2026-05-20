@@ -9,6 +9,7 @@
       microvm-host
       network
       openssh
+      preservation
       sanoid
       zfs
     ];

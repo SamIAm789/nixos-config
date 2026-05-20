@@ -16,8 +16,7 @@
       server-hardware
     ];
 
-    networking.hostId = "6c0ee112";
-
     system.stateVersion = "25.11";
+
   };
 }

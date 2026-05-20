@@ -15,6 +15,9 @@ in
       config,
       ...
     }:
+    let
+      isVM = config.virtualisation ? qemu;
+    in
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
@@ -29,7 +32,15 @@ in
 
       users.users."${username}" = {
         isNormalUser = true;
-        hashedPasswordFile = config.sops.secrets.sam.path;
+        hashedPasswordFile =
+             if isVM
+             then null
+             else config.sops.secrets.sam.path;
+
+           initialHashedPassword =
+             if isVM
+             then "$y$j9T$isUS3neJEEFmJTYteyeHx1$RG2NFoIf.eBb0rELDl1aTCP0c4aC/33GpIKzFkCIKm2"  # hash of "password"
+             else null;
         extraGroups = [
           "wheel"
         ];

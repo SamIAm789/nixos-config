@@ -13,11 +13,9 @@ in
   flake.modules.nixos."${username}" =
     {
       config,
+      lib,
       ...
     }:
-    let
-      isVM = config.virtualisation ? qemu;
-    in
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
@@ -30,24 +28,19 @@ in
         ];
       };
 
-      users.users."${username}" = {
+      users.users.${username} = {
         isNormalUser = true;
-        hashedPasswordFile =
-             if isVM
-             then null
-             else config.sops.secrets.sam.path;
-
-           initialHashedPassword =
-             if isVM
-             then "$y$j9T$isUS3neJEEFmJTYteyeHx1$RG2NFoIf.eBb0rELDl1aTCP0c4aC/33GpIKzFkCIKm2"  # hash of "password"
-             else null;
-        extraGroups = [
-          "wheel"
-        ];
+        extraGroups = [ "wheel" ];
+        hashedPasswordFile = config.sops.secrets.sam.path;
+        initialHashedPassword = lib.mkDefault "$y$j9T$isUS3neJEEFmJTYteyeHx1$RG2NFoIf.eBb0rELDl1aTCP0c4aC/33GpIKzFkCIKm2";
       };
 
-      sops.secrets.sam.neededForUsers = true;
-
+      sops.secrets.sam = {
+        owner = "root";
+        group = "root";
+        mode = "0400";
+        neededForUsers = true;
+      };
     };
 
   flake.modules.homeManager."${username}" =
@@ -61,7 +54,7 @@ in
       ];
       home.username = "${username}";
       home.packages = with pkgs; [
-        spotify
+
       ];
       home.stateVersion = "25.05";
     };

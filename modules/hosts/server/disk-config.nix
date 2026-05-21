@@ -46,6 +46,7 @@
           device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V";
           content = {
             type = "gpt";
+            wipeTable = true;
             partitions = {
               zfs = {
                 size = "100%";

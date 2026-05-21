@@ -18,7 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    impermanence.url = "github:nix-community/impermanence";
     import-tree.url = "github:vic/import-tree";
     microvm = {
       url = "github:microvm-nix/microvm.nix";
@@ -26,7 +25,6 @@
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-lib.follows = "nixpkgs";
-    preservation.url = "github:nix-community/preservation";
     secrets = {
       url = "git+ssh://git@github.com/SamIAm789/secrets";
       flake = false;

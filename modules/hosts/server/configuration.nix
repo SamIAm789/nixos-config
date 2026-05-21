@@ -9,7 +9,6 @@
 
     imports = with inputs.self.modules.nixos; [
       disko
-      #./disk-config.nix
       sam
       server-profile
       server-filesystems

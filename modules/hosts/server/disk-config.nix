@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.server = {
+  #flake.diskoConfigurations.server = {
     disko.devices = {
       disk = {
         root = {
@@ -119,5 +119,4 @@
         };
       };
     };
-  };
-}
+  }

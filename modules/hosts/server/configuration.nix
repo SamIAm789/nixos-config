@@ -7,13 +7,14 @@
 
   flake.modules.nixos.server = {
 
-    imports = with inputs.self.modules.nixos; [
-      disko
+    imports = [
+      inputs.disko.nixosModules.disko
+      inputs.self.modules.nixos.disko
       ./disk-config.nix
-      sam
-      server-profile
-      server-filesystems
-      server-hardware
+      inputs.self.modules.nixos.sam
+      inputs.self.modules.nixos.server-profile
+      inputs.self.modules.nixos.server-filesystems
+      inputs.self.modules.nixos.server-hardware
     ];
 
     system.stateVersion = "25.11";

@@ -1,5 +1,12 @@
 {
-  #flake.diskoConfigurations.server = {
+  inputs,
+  ...
+}:
+{
+  flake.modules.nixos.server = {
+
+    imports = [ inputs.disko.nixosModules.disko ];
+
     disko.devices = {
       disk = {
         root = {
@@ -119,4 +126,5 @@
         };
       };
     };
-  }
+  };
+}

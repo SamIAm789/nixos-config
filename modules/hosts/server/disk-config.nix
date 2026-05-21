@@ -11,7 +11,7 @@
       disk = {
         root = {
           type = "disk";
-          device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V_1";
+          device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V";
           content = {
             type = "gpt";
             partitions = {
@@ -43,10 +43,9 @@
         };
         vmstore = {
           type = "disk";
-          device = "/dev/disk/by-id/nvme-SK_hynix_BC501_HFM256GDJTNG-8310A_CY02N058210202N4V";
+          device = "/dev/disk/by-id/nvme-SAMSUNG_MZFLV256HCHP-000MV_S245NABGB03751";
           content = {
             type = "gpt";
-            wipeTable = true;
             partitions = {
               zfs = {
                 size = "100%";

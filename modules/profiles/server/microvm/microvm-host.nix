@@ -36,6 +36,7 @@
           netdevConfig = {
             Kind = "bridge";
             Name = "microbr";
+            MACAddress = "none";
           };
         };
       };
@@ -55,6 +56,16 @@
           };
           networkConfig = {
             DHCP = "yes";
+          };
+        };
+      };
+
+      links = {
+
+        "10-lan-microbr" = {
+          matchConfig.Name = "microbr";
+          linkConfig = {
+            MACAddressPolicy = "none";
           };
         };
       };

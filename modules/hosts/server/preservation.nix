@@ -31,7 +31,7 @@
 
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }
-          { file = "/etc/ssh/ssh_host_ed25519_key"; how = "symlink"; configureParent = true; }
+          #{ file = "/etc/ssh/ssh_host_ed25519_key"; how = "symlink"; configureParent = true; }
         ];
 
         users.sam = {

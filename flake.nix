@@ -26,6 +26,7 @@
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-lib.follows = "nixpkgs";
+    preservation.url = "github:nix-community/preservation";
     secrets = {
       url = "git+ssh://git@github.com/SamIAm789/secrets";
       flake = false;

@@ -2,3 +2,8 @@ SSH_AUTH_SOCK=$SSH_AUTH_SOCK nix run github:nix-community/nixos-anywhere \
   --extra-files /home/sam/extra \
   --flake /home/sam/.dotfiles#server \
   root@10.25.0.24
+
+extra-files are used to pass age and ssh keys.
+the folder structure needs to resemble the final structure on the target
+exta/var/lib/sops-nix/key.txt
+extra/root/.ssh/id_ed25519

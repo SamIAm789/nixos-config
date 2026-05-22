@@ -1,0 +1,4 @@
+SSH_AUTH_SOCK=$SSH_AUTH_SOCK nix run github:nix-community/nixos-anywhere \
+  --extra-files /home/sam/extra \
+  --flake /home/sam/.dotfiles#server \
+  root@10.25.0.24

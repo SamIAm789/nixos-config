@@ -5,7 +5,8 @@
 {
   flake.modules.nixos.server = {
     sops.secrets."server-ssh" = {
-        sopsFile = "${inputs.secrets}/secrets/server-ssh";
+        sopsFile = "${inputs.secrets}/secrets/secrets.yaml";
+        key = "server-ssh";
         owner = "root";
         group = "root";
         mode = "0400";

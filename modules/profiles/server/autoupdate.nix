@@ -23,7 +23,7 @@
 
     system.autoUpgrade = {
       enable = true;
-      flake = "path:/home/sam/.dotfiles";
+      flake = "path:/home/sam/.dotfiles/flake-parts";
       allowReboot = true;
       rebootWindow = {
         lower = "02:00";

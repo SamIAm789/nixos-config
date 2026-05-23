@@ -6,7 +6,6 @@
 
       preserveAt."/persist" = {
         directories = [
-          "/var/lib/systemd/timers"
           "/var/log"
           {
             directory = "/var/lib/nixos";
@@ -21,6 +20,7 @@
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }
           { file = "/etc/ssh/ssh_host_ed25519_key"; how = "symlink"; configureParent = true; }
+          { file = "/var/lib/systemd/random-seed"; }
         ];
 
         users.sam = {

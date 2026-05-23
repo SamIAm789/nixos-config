@@ -58,6 +58,13 @@
             DHCP = "yes";
           };
         };
+    
+        "10-lan-microbr" = {
+          matchConfig.Name = "microbr";
+          bridgeConfig = {};
+          linkConfig.RequiredForOnline = "routable";
+          networkConfig.DHCP = "yes";
+        };
       };
 
       links = {

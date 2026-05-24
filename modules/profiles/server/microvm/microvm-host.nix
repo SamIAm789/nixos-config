@@ -48,16 +48,6 @@
           networkConfig.Bridge = "microbr";
           linkConfig.RequiredForOnline = "enslaved";
         };
-
-        "10-lan-microbr" = {
-          matchConfig.Name = "microbr";
-          linkConfig = {
-            RequiredForOnline = "routable";
-          };
-          networkConfig = {
-            DHCP = "yes";
-          };
-        };
     
         "10-lan-microbr" = {
           matchConfig.Name = "microbr";

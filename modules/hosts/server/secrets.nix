@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.server66 = {
     sops.secrets."server-ssh" = {
         sopsFile = "${inputs.secrets}/secrets/secrets.yaml";
         key = "server-ssh";

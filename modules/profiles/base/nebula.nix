@@ -26,21 +26,21 @@
 
       # --- SOPS secrets ---
       sops.secrets = {
-        "nebula/ca" = {
+        "nebula.ca" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
           mode = "0400";
         };
 
-        "nebula/${host}/crt" = {
+        "nebula.${host}.crt" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
           mode = "0400";
         };
 
-        "nebula/${host}/key" = {
+        "nebula.${host}.key" = {
           inherit sopsFile;
           owner = nebulaUser;
           group = nebulaGroup;
@@ -49,9 +49,9 @@
       };
 
       services.nebula.networks.pertaka = {
-        ca   = config.sops.secrets."nebula/ca".path;
-        cert = config.sops.secrets."nebula/${host}/crt".path;
-        key  = config.sops.secrets."nebula/${host}/key".path;
+        ca   = config.sops.secrets."nebula.ca".path;
+        cert = config.sops.secrets."nebula.${host}.crt".path;
+        key  = config.sops.secrets."nebula.${host}.key".path;
 
         staticHostMap = lib.mkIf (!isLighthouse) {
           "100.100.0.1" = [ lighthouseIP ];

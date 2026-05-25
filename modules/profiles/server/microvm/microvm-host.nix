@@ -12,9 +12,26 @@
 
   flake.modules.nixos.microvm-host =
   {
+    config 
     lib,
     ...
   }:
+  let
+    hostname = config.networking.hostName;
+    hash = builtins.hashString "sha256" hostname;
+
+    # take 6 bytes = 12 hex chars
+    raw = builtins.substring 0 12 hash;
+
+    mac =
+      "02:" +
+      (builtins.substring 0 2 raw) + ":" +
+      (builtins.substring 2 2 raw) + ":" +
+      (builtins.substring 4 2 raw) + ":" +
+      (builtins.substring 6 2 raw) + ":" +
+      (builtins.substring 8 2 raw);
+
+  in
   {
     imports = [
       inputs.microvm.nixosModules.host

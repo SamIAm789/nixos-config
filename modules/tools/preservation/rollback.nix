@@ -7,14 +7,17 @@
     {
 
 # Enable systemd in initrd
-      boot.initrd.systemd.enable = true;
-
-      boot.supportedFilesystems = [ "zfs" ];
-      boot.initrd.supportedFilesystems = [ "zfs" ];
+      boot = {
+        initrd = {
+          systemd.enable = true;
+          supportedFilesystems = [ "zfs" ];
+          kernelModules = [ "zfs" ];
+        };
+      };
 
       # systemd in initrd requires a service instead of a command
-      boot.initrd.systemd.services.reset = {
-        description = "reset root filesystem";
+      boot.initrd.systemd.services.rollback = {
+        description = "rollback root filesystem";
         wantedBy = [ "initrd.target" ];
         after = [ "zfs-import-system.service" ];
         before = [ "sysroot.mount" ];

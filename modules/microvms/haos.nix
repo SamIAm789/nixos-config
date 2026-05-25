@@ -1,6 +1,24 @@
 {
-  flake.modules.nixos.haos = {
+  flake.modules.nixos.haos = 
 
+  let
+    mkMac = vmName: let
+      hash = builtins.hashString "sha256" vmName;
+    in
+      "02:" +
+      builtins.substring 0 2 hash + ":" +
+      builtins.substring 2 2 hash + ":" +
+      builtins.substring 4 2 hash + ":" +
+      builtins.substring 6 2 hash + ":" +
+      builtins.substring 8 2 hash;
+
+      mac = mkMac "haos";
+  in
+  {
+    lib,
+    ...
+  }:
+  {
 
     networking.tapInterfaces."vm-haos" = {
       user = "root";
@@ -29,12 +47,11 @@
 
         RuntimeDirectory = "haos-vm";
 
-        ExecStart = ''
-          /run/current-system/sw/bin/cloud-hypervisor \
+        ExecStart = lib.getExe pkgs.cloud-hypervisor + '' \
           --cpus boot=2 \
           --memory size=4096M \
           --disk path=/persist/microvms/haos/haos.img \
-          --net tap=vm-haos,mac=02:00:00:00:00:01 \
+          --net tap=vm-haos,mac=${mac} \
           --serial tty \
           --console off \
           --api-socket /run/haos-vm/ch.sock

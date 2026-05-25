@@ -11,7 +11,13 @@
         initrd = {
           systemd.enable = true;
           supportedFilesystems = [ "zfs" ];
-          kernelModules = [ "zfs" ];
+          kernelModules = [
+            "zfs"
+            "zcommon"
+            "znvpair"
+            "zavl"
+            "zunicode"
+          ];
         };
       };
 

@@ -53,7 +53,7 @@
           netdevConfig = {
             Kind = "bridge";
             Name = "microbr";
-            MACAddress = "none";
+            MACAddress = "mac";
           };
         };
       };
@@ -78,9 +78,7 @@
 
         "11-lan-microbr" = {
           matchConfig.Name = "microbr";
-          linkConfig = {
-            MACAddressPolicy = "none";
-          };
+          linkConfig = {};
         };
       };
     };

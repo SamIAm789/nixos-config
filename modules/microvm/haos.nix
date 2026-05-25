@@ -15,6 +15,10 @@
       mac = mkMac "haos";
   in
   {
+    lib,
+    ...
+  }:
+  {
 
     networking.tapInterfaces."vm-haos" = {
       user = "root";

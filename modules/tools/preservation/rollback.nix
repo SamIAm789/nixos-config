@@ -9,6 +9,9 @@
 # Enable systemd in initrd
       boot.initrd.systemd.enable = true;
 
+      boot.supportedFilesystems = [ "zfs" ];
+      boot.initrd.supportedFilesystems = [ "zfs" ];
+
       # systemd in initrd requires a service instead of a command
       boot.initrd.systemd.services.reset = {
         description = "reset root filesystem";

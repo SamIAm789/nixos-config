@@ -20,8 +20,11 @@
         files = [
           { file = "/etc/machine-id"; inInitrd = true; }
           { file = "/etc/ssh/ssh_host_ed25519_key"; how = "symlink"; configureParent = true; }
+          { file = "/etc/ssh/keys/secret-deploy"; how = "symlink"; configureParent = true; }
+          { file = "etc/ssh/keys/config-deploy"; how = "symlink"; configureParent = true; }
           { file = "/var/lib/systemd/random-seed"; }
         ];
+
 
         users.sam = {
           directories = [

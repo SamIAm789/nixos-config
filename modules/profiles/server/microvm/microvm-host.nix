@@ -32,7 +32,7 @@
 
       netdevs = {
 
-        "microbr" = {
+        "10-microbr" = {
           netdevConfig = {
             Kind = "bridge";
             Name = "microbr";
@@ -43,13 +43,13 @@
 
       networks = {
 
-        "10-lan" = {
+        "12-lan" = {
           matchConfig.Name = [ "eno1" "vm-*" ];
           networkConfig.Bridge = "microbr";
           linkConfig.RequiredForOnline = "enslaved";
         };
     
-        "10-lan-microbr" = {
+        "13-lan-microbr" = {
           matchConfig.Name = "microbr";
           bridgeConfig = {};
           linkConfig.RequiredForOnline = "routable";
@@ -59,7 +59,7 @@
 
       links = {
 
-        "10-lan-microbr" = {
+        "11-lan-microbr" = {
           matchConfig.Name = "microbr";
           linkConfig = {
             MACAddressPolicy = "none";

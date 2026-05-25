@@ -1,5 +1,10 @@
 {
   flake.modules.nixos.haos = 
+  {
+    lib,
+    pkgs,
+    ...
+  }:
 
   let
     mkMac = vmName: let
@@ -14,11 +19,6 @@
 
       mac = mkMac "haos";
   in
-  {
-    lib,
-    pkgs,
-    ...
-  }:
   {
 
     networking.tapInterfaces."vm-haos" = {

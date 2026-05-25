@@ -12,7 +12,7 @@
 
   flake.modules.nixos.microvm-host =
   {
-    config 
+    config,
     lib,
     ...
   }:

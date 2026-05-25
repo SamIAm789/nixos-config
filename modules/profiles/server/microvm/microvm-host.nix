@@ -53,7 +53,7 @@
           netdevConfig = {
             Kind = "bridge";
             Name = "microbr";
-            MACAddress = "mac";
+            MACAddress = mac;
           };
         };
       };

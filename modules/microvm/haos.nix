@@ -29,8 +29,7 @@
 
         RuntimeDirectory = "haos-vm";
 
-        ExecStart = ''
-          /run/current-system/sw/bin/cloud-hypervisor \
+        ExecStart = lib.getExe pkgs.cloud-hypervisor + '' \
           --cpus boot=2 \
           --memory size=4096M \
           --disk path=/persist/microvms/haos/haos.img \

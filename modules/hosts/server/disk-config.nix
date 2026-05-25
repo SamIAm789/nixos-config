@@ -122,6 +122,14 @@
               type = "zfs_fs";
               mountpoint = "/persist/microvms";
             };
+            "haos" = {
+              type = "zfs_fs";
+              mountpoint = "/persist/microvms/haos";
+            };
+            "haos/data" = {
+              type = "zfs_fs";
+              mountpoint = "/persist/microvms/haos/haos-data";
+            };
           };
         };
       };

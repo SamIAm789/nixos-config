@@ -71,6 +71,10 @@
     openFirewall = true;
   };
 
+  services.postgresql.settings.shared_preload_libraries = [ "vchord.so" ];
+  services.postgresql.settings.extension_dir = "/var/lib/postgresql/extensions";
+
+
   # ── Quality of Life ───────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [
     htop iotop

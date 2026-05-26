@@ -2,38 +2,48 @@
   pkgs,
   ...
 }:
+let
+  # Hash the hostname → take first 5 bytes
+  hash = builtins.hashString "sha256" config.networking.hostName;
+
+  # Extract bytes from the hash
+  b1 = "02";  # locally-administered, unicast
+  b2 = builtins.substring 0 2 hash;
+  b3 = builtins.substring 2 2 hash;
+  b4 = builtins.substring 4 2 hash;
+  b5 = builtins.substring 6 2 hash;
+  b6 = builtins.substring 8 2 hash;
+
+  mac = "${b1}:${b2}:${b3}:${b4}:${b5}:${b6}";
+in
 {
-  # ── Basic System ─────────────────────────────────────────────────────
+
   networking.hostName = "immich-vm";
   system.stateVersion = "25.11";
 
-  # ── MicroVM Hardware ─────────────────────────────────────────────────
+  # ── MicroVM Configuration ─────────────────────────────────────────────
   microvm = {
     hypervisor = "cloud-hypervisor";
     vcpu = 2;
-    mem = 2 * 1024;           # 2GB base
-    hotplugMem = 4 * 1024;
-
-    vsock.cid = 100;
+    mem = 2048;
+    hotplugMem = 4096;
 
     interfaces = [{
       type = "tap";
       id = "vm-immich";
-      mac = "02:00:00:00:00:01";
+      mac = mac;
     }];
 
+    vsock.cid = 100;
+
+    # Persistent root disk (Very Important!)
     volumes = [{
       image = "/persist/microvms/immich/root.img";
       mountPoint = "/";
-      size = 16384;       # 16 GB
+      size = 16384;           # 16GB
       fsType = "ext4";
       autoCreate = true;
     }];
-
-    virtiofsd = {
-        extraArgs = [ "--sandbox=none" "--thread-pool-size=4" ];
-        group = "kvm";   # helps with socket permissions
-    };
 
     shares = [
       {
@@ -52,24 +62,24 @@
     ];
   };
 
-  # ── Networking ───────────────────────────────────────────────────────
+  # ── Networking ────────────────────────────────────────────────────────
   systemd.network.enable = true;
   systemd.network.networks."20-lan" = {
     matchConfig.Type = "ether";
     networkConfig.DHCP = "yes";
   };
 
-  # ── User ─────────────────────────────────────────────────────────────
+  # ── User ──────────────────────────────────────────────────────────────
   users.users.sam = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    initialPassword = "test";   # Change this after first login!
+    initialPassword = "test";   # Change this soon!
   };
 
-  # ── SSH ──────────────────────────────────────────────────────────────
+  # ── SSH ───────────────────────────────────────────────────────────────
   services.openssh.enable = true;
 
-  # ── Immich ───────────────────────────────────────────────────────────
+  # ── Immich ────────────────────────────────────────────────────────────
   services.immich = {
     enable = true;
     host = "0.0.0.0";
@@ -78,14 +88,10 @@
     openFirewall = true;
   };
 
-  # Enable this if you want machine learning (needs more RAM/CPU)
-  # services.immich.machine-learning.enable = true;
-
-  # ── Basic tools ──────────────────────────────────────────────────────
+  # ── Quality of Life ───────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [
     htop iotop
   ];
 
-  # Allow nix commands inside the VM
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

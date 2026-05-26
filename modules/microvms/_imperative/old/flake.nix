@@ -12,30 +12,20 @@
 
   outputs = { self, nixpkgs, microvm, ... } @inputs:
 
-  {
-
-    nixosConfigurations =
-
-    let
-
-      system = "x86_64-linux";
-
-      mkMicroVM = entrypoint: nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-           entrypoint
-          microvm.nixosModules.microvm
-        ];
-      };
-
-    in
-
-    {
-      nixosConfigurations.immich = mkMicroVM ./immich.nix;
-
-        # Best for the microvm CLI
-      microvm.config.immich = mkMicroVM ./immich.nix;
+  let
+    system = "x86_64-linux";
+    mkMicroVM = entrypoint: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit inputs; };
+      modules = [
+        entrypoint
+        microvm.nixosModules.microvm
+      ];
     };
+  in
+  {
+    nixosConfigurations.immich = mkMicroVM ./immich.nix;
+      # Best for the microvm CLI
+    microvm.config.immich = mkMicroVM ./immich.nix;
   };
 }

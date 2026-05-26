@@ -14,6 +14,8 @@
     mem = 2 * 1024;           # 2GB base
     hotplugMem = 4 * 1024;
 
+    vsock.cid = 100;
+
     interfaces = [{
       type = "tap";
       id = "vm-immich";

@@ -1,7 +1,8 @@
-{ system, nixpkgs, microvm, ... }:
-
-{ config, lib, pkgs, ... }:
-
+{
+  pkgs,
+  microvm,
+  ...
+}:
 {
   imports = [
     microvm.nixosModules.microvm

@@ -31,7 +31,7 @@
     }];
 
     virtiofsd = {
-        extraArgs = [ "--sandbox=none" "--thread-pool-size=8" ];
+        extraArgs = [ "--sandbox=none" "--thread-pool-size=4" ];
         group = "kvm";   # helps with socket permissions
     };
 

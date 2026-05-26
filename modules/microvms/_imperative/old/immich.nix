@@ -2,21 +2,23 @@
 let
   vectorsCompat = pkgs.stdenv.mkDerivation {
     name = "vectors-compat";
-    src = pkgs.writeTextDir "share/postgresql/extension" ''
-      # vectors.control
-      comment = 'Compatibility shim for old Immich backups'
-      default_version = '1.0'
-      relocatable = true
-    '';
+
+    # We create the files directly in the derivation
+    dontUnpack = true;
 
     installPhase = ''
       mkdir -p $out/share/postgresql/extension
-      cp $src/share/postgresql/extension/* $out/share/postgresql/extension/
+
+      cat > $out/share/postgresql/extension/vectors.control <<EOF
+comment = 'Compatibility shim for old Immich backups'
+default_version = '1.0'
+relocatable = true
+EOF
 
       cat > $out/share/postgresql/extension/vectors--1.0.sql <<EOF
-      -- Compatibility shim: map old "vectors" extension to new "vector"
-      CREATE EXTENSION IF NOT EXISTS vector;
-      EOF
+-- Compatibility shim: map old "vectors" extension to new "vector"
+CREATE EXTENSION IF NOT EXISTS vector;
+EOF
     '';
   };
 in

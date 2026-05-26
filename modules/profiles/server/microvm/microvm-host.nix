@@ -39,6 +39,8 @@
 
     microvm.host.enable = true;
 
+    microvm.stateDir = "/persist/microvms/state";
+
     networking = {
       networkmanager.enable = lib.mkForce false;
       useDHCP = false;
@@ -65,7 +67,7 @@
           networkConfig.Bridge = "microbr";
           linkConfig.RequiredForOnline = "enslaved";
         };
-    
+
         "13-lan-microbr" = {
           matchConfig.Name = "microbr";
           bridgeConfig = {};

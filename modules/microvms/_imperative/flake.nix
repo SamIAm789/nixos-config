@@ -21,11 +21,6 @@
       modules = [
         entrypoint
         microvm.nixosModules.microvm
-        {
-          # Global microvm defaults (optional)
-          networking.hostName = name;
-          system.stateVersion = "25.11";
-        }
       ];
     };
   in {

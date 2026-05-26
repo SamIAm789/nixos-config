@@ -45,7 +45,7 @@
       # Host-side orchestration options
       waitForSocket = true;        # ← fixes your virtiofs race
       autostart = false;           # you run imperatively
-      createSystemdUnit = false;   # no systemd wrapper
+      #createSystemdUnit = false;   # no systemd wrapper
     };
 
     #

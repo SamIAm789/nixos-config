@@ -37,6 +37,8 @@
         source = "/stuff/photos";
         mountPoint = "/stuff/photos";
         socket = "photos.socket";
+        extraArgs = [ "--sandbox=none" "--thread-pool-size=8" ];
+        socketGroup = "kvm";   # important
       }
       {
         proto = "virtiofs";

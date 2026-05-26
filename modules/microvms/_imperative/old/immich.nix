@@ -17,6 +17,8 @@
       mac = "02:00:00:00:00:01";
     }];
 
+    vsock.cid = 100;
+
     # Persistent root disk (Very Important!)
     volumes = [{
       image = "/persist/microvms/immich/root.img";

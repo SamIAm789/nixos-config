@@ -18,11 +18,13 @@
 
     let
 
+      system = "x86_64-linux";
+
       mkMicroVM = entrypoint: nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         specialArgs = { inherit inputs; };
         modules = [
-          entrypoint
+           entrypoint
           microvm.nixosModules.microvm
         ];
       };

@@ -8,6 +8,7 @@
 
 # Enable systemd in initrd
       boot = {
+        zfs.devNodes = "/dev/disk/by-id";
         initrd = {
           systemd.enable = true;
           supportedFilesystems = [ "zfs" ];

@@ -15,6 +15,8 @@
         mountPoint = "/stuff/photos";
         socket = "photos.socket";
     } ];
+
+    vsock.cid = 100;
     # set dataset options to -o xattr=sa -o acltype=posixacl
     mem = 2 * 1024;
     hotplugMem = 4 * 1024; #max amount of extra mem that can be added with virtio-men

@@ -1,5 +1,5 @@
 {
-  description = "Sam's MicroVMs";
+  description = "Sam's MicroVMs (imperative)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -14,28 +14,52 @@
   let
     system = "x86_64-linux";
 
-    # Helper function to create a MicroVM
-    mkMicroVM = name: entrypoint: nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs; };
-      modules = [
-        entrypoint
-        microvm.nixosModules.microvm
-      ];
+    # mkVM: build a guest system + attach host-side options
+    mkVM = name: guestModule: hostOpts: {
+      ${name} = {
+        # Guest OS (inside the VM)
+        config = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            guestModule
+            microvm.nixosModules.microvm
+          ];
+        };
+
+        # Host-side MicroVM options
+        inherit (hostOpts)
+          stateDir
+          waitForSocket
+          autostart
+          createSystemdUnit;
+      };
     };
   in {
-    # For imperative `microvm` CLI usage
-    microvm.config = {
-      immich = mkMicroVM "immich" ./immich.nix;
-      # Add more VMs here easily:
-      # nextcloud = mkMicroVM "nextcloud" ./nextcloud.nix;
-      # vaultwarden = mkMicroVM "vaultwarden" ./vaultwarden.nix;
+    #
+    # Imperative MicroVMs
+    #
+    microvm.config = mkVM "immich" ./immich.nix {
+      stateDir = "/persist/microvms/state/immich";
+
+      # Host-side orchestration options
+      waitForSocket = true;        # ← fixes your virtiofs race
+      autostart = false;           # you run imperatively
+      createSystemdUnit = false;   # no systemd wrapper
     };
 
-    # Also expose as regular nixosConfigurations (useful for debugging)
+    #
+    # Optional: expose guest configs as nixosConfigurations
+    #
     nixosConfigurations = {
-      immich = mkMicroVM "immich" ./immich.nix;
-      # nextcloud = mkMicroVM "nextcloud" ./nextcloud.nix;
+      immich = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./immich.nix
+          microvm.nixosModules.microvm
+        ];
+      };
     };
   };
 }

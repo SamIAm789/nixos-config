@@ -30,6 +30,11 @@
       autoCreate = true;
     }];
 
+    virtiofsd = {
+        extraArgs = [ "--sandbox=none" "--thread-pool-size=8" ];
+        group = "kvm";   # helps with socket permissions
+    };
+
     shares = [
       {
         proto = "virtiofs";
@@ -37,8 +42,6 @@
         source = "/stuff/photos";
         mountPoint = "/stuff/photos";
         socket = "photos.socket";
-        extraArgs = [ "--sandbox=none" "--thread-pool-size=8" ];
-        socketGroup = "kvm";   # important
       }
       {
         proto = "virtiofs";

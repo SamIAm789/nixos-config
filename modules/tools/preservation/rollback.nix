@@ -6,27 +6,17 @@
     }:
     {
 
-# Enable systemd in initrd
-      boot = {
-        zfs.devNodes = "/dev/disk/by-id";
-        initrd = {
-          systemd.enable = true;
-          supportedFilesystems = [ "zfs" ];
-          kernelModules = [
-            "zfs"
-            "zcommon"
-            "znvpair"
-            "zavl"
-            "zunicode"
-          ];
-        };
+      boot.initrd = {
+        systemd.enable = true;
+        supportedFilesystems = [ "zfs" ];
       };
 
       # systemd in initrd requires a service instead of a command
       boot.initrd.systemd.services.rollback = {
         description = "rollback root filesystem";
         wantedBy = [ "initrd.target" ];
-        after = [ "zfs-import-system.service" ];
+        after = [ "zfs-import-rpool.service" ];
+        requires = [ "zfs-import-rpool.service" ];
         before = [ "sysroot.mount" ];
         path = with pkgs; [ zfs ];
         unitConfig.DefaultDependencies = "no";

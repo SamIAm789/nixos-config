@@ -1,13 +1,8 @@
 {
   pkgs,
-  microvm,
   ...
 }:
 {
-  imports = [
-    microvm.nixosModules.microvm
-  ];
-
   # ── Basic System ─────────────────────────────────────────────────────
   networking.hostName = "immich-vm";
   system.stateVersion = "25.11";

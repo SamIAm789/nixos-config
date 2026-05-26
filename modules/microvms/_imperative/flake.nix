@@ -10,7 +10,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, microvm, ... }:
+  outputs = { self, nixpkgs, microvm, inputs, ... }:
   let
     system = "x86_64-linux";
 

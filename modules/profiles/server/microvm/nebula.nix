@@ -41,6 +41,5 @@
     in
     {
       config = lib.mkMerge (map mkVm config.microvm.vms);
-    }
-  }
+    };
 }

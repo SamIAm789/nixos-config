@@ -2,7 +2,8 @@
   description = "Imperative MicroVMs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs-lib.follows = "nixpkgs";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -13,24 +14,12 @@
 
     microvm = {
       url = "github:astro/microvm.nix";
-      nixpkgs.follows = "nixpkgs";
-    };
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      nixpkgs.follows = "nixpkgs";
-    };
-
-    secrets = {
-      url = "github:SamIAm789/secrets";
-      nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dotfiles = {
       url = "github:SamIAm789/dotfiles";
-      nixpkgs.follows = "nixpkgs";
-      sops-nix.follows = "sops-nix";
-      secrets.follows = "secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

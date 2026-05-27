@@ -16,6 +16,7 @@
         fish
         home-manager
         nebula
+        nebula-secrets
         nix
         sam
         ssh-keys

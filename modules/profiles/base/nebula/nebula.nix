@@ -1,8 +1,4 @@
 {
-  inputs,
-  ...
-}:
-{
   flake.modules.nixos.nebula =
     {
       config,
@@ -14,42 +10,12 @@
     let
       host = config.networking.hostName;
       isLighthouse = host == "lighthouse";
-      sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
-      nebulaUser = "nebula-pertaka";
-      nebulaGroup = "nebula-pertaka";
       lighthouseIP = "161.33.225.147:4242";
 
     in
     {
 
       environment.systemPackages = [ pkgs.nebula ];
-
-      # --- SOPS secrets ---
-      sops.secrets = {
-        "nebula.ca" = {
-          inherit sopsFile;
-          key = "nebula/ca";
-          owner = nebulaUser;
-          group = nebulaGroup;
-          mode = "0400";
-        };
-
-        "nebula.${host}.crt" = {
-          inherit sopsFile;
-          key = "nebula/${host}/crt";
-          owner = nebulaUser;
-          group = nebulaGroup;
-          mode = "0400";
-        };
-
-        "nebula.${host}.key" = {
-          inherit sopsFile;
-          key = "nebula/${host}/key";
-          owner = nebulaUser;
-          group = nebulaGroup;
-          mode = "0400";
-        };
-      };
 
       services.nebula.networks.pertaka = {
         ca   = config.sops.secrets."nebula.ca".path;

@@ -1,50 +1,32 @@
 {
+  inputs,
+  ...}:
+{
   flake.modules.nixos.nebula =
   {
-    pkgs,
+    config,
+    lib,
     ...
   }:
   {
-    # Ensure the mount exists before nebula starts
-    systemd.tmpfiles.rules = [
-      "d /run/secrets/nebula 0750 root root -"
+    imports = [
+      inputs.dotfiles.modules.nixos.nebula
     ];
 
-    environment.systemPackages = [ pkgs.nebula ];
-
     services.nebula.networks.pertaka = {
-      ca   = /run/secrets/nebula/ca.crt;
-      cert = /run/secrets/nebula/host.crt;
-      key  = /run/secrets/nebula/host.key;
-
-      staticHostMap = {
-        "100.100.0.1" = [ "161.33.225.147:4242" ];
-      };
-
-      lighthouses = [ "100.100.0.1" ];
-
-      settings = {
-        lighthouse = {
-          am_lighthouse = false;
-          interval = 60;
-        };
-
-        punchy = {
-          punch = true;
-          respond = true;
-        };
-      };
-
-      firewall = {
-        outbound = [
-          { host = "any"; port = "any"; proto = "any"; }
-        ];
-        inbound = [
-          { host = "any"; port = "any"; proto = "any"; }
-        ];
-      };
-
-      relays = [ "100.100.0.1" ];
+      ca   = lib.mkForce "/run/secrets/nebula/ca.crt";
+      cert = lib.mkForce "/run/secrets/nebula/host.crt";
+      key  = lib.mkForce "/run/secrets/nebula/host.key";
     };
+
+    config.microvm.shares = [
+      {
+        proto = "virtiofs";
+        tag = "nebula-secrets";
+        source = "/var/lib/microvms/${config.networking.hostName}/nebula";
+        mountPoint = "/run/secrets/nebula";
+        readonly = true;
+      }
+    ];
   };
 }

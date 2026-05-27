@@ -87,11 +87,4 @@ in
     mediaLocation = "/stuff/photos";
     openFirewall = true;
   };
-
-  # ── Quality of Life ───────────────────────────────────────────────────
-  environment.systemPackages = with pkgs; [
-    htop iotop
-  ];
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

@@ -10,9 +10,10 @@
       ...
     }:
     let
-      sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
+      sopsFile =
+        "${inputs.secrets}/secrets/nebula.yaml";
 
-      mkVm = name: {
+      mkVm = name: _: {
         systemd.tmpfiles.rules = [
           "d /var/lib/microvms/${name}/nebula 0750 root root -"
         ];
@@ -40,6 +41,8 @@
       };
     in
     {
-      config = lib.mkMerge (map mkVm config.microvm.vms);
+      config = lib.mkMerge (
+        lib.mapAttrsToList mkVm config.microvm.vms
+      );
     };
 }

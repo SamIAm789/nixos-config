@@ -3,6 +3,8 @@
   ...
 }:
 {
+  flake.nixosConfigurations = inputs.self.lib.mkMicroVM "x86_64-linux" "immich-test";
+ 
   flake.modules.nixos.immich-test = {
 
     imports = [

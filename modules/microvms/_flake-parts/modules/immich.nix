@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.modules.microvm.immich = {
+  flake.modules.nixos.immich = {
 
     imports = [
       inputs.dotfiles.modules.nixos.nebula

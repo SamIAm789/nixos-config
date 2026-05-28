@@ -20,7 +20,7 @@
       key  = lib.mkForce "/run/secrets/nebula/host.key";
     };
 
-    config.microvm.shares = [
+    microvm.shares = [
       {
         proto = "virtiofs";
         tag = "nebula-secrets";

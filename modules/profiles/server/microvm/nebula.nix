@@ -41,8 +41,7 @@
       };
     in
     {
-      config = lib.mkMerge (
-        lib.mapAttrsToList mkVm (config.microvm.vms or {})
-      );
+      config = lib.mkMerge (map mkVm (config.microvmNebula.vms or []));
     };
+  };
 }

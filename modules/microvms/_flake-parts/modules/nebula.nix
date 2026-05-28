@@ -1,6 +1,7 @@
 {
   inputs,
-  ...}:
+  ...
+}:
 {
   flake.modules.nixos.nebula =
   {

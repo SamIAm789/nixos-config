@@ -1,41 +1,29 @@
 {
   inputs,
-  self,
+  lib,
   ...
 }:
 {
-  systems = [ "x86_64-linux" ];
 
-  flake.mkMicroVM =
-    name:
-    inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+  options.flake.lib = lib.mkOption {
+    type = lib.types.attrsOf lib.types.unspecified;
+    default = { };
+  };
 
-      modules = [
-        inputs.microvm.nixosModules.microvm
-        inputs.sops-nix.nixosModules.sops
-        inputs.dotfiles.modules.nixos.nebula
+  config.flake.lib = {
 
-        self.modules.nixos.microvm-base
-
-        {
-          networking.hostName = name;
-        }
-
-        self.modules.microvm.${name}
-      ];
+    mkNixos = system: name: {
+      ${name} = inputs.nixpkgs.lib.nixosSystem {
+        modules = [
+          inputs.self.modules.nixos.${name}
+          {
+            nixpkgs.hostPlatform = lib.mkDefault system;
+            networking.hostName = lib.mkDefault name;
+          }
+          inputs.microvm.nixosModules.microvm
+          inputs.self.modules.nixos.microvm-base
+        ];
+      };
     };
-
-  flake.nixosConfigurations =
-    builtins.mapAttrs
-      (name: _: self.mkMicroVM name)
-      self.modules.microvm;
-
-  flake.packages.x86_64-linux =
-    builtins.mapAttrs
-      (name: _:
-        self.nixosConfigurations.${name}
-          .config.microvm.declaredRunner
-      )
-      self.modules.microvm;
+  };
 }

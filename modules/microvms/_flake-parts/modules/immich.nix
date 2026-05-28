@@ -30,7 +30,7 @@
         {
           proto = "virtiofs";
           tag = "photos";
-          source = "/stuff/photos";
+          source = "/stuff/immich-test";
           mountPoint = "/stuff/photos";
           socket = "photos.socket";
         }

@@ -1,4 +1,8 @@
 {
+  self,
+  ...
+}:
+{
   flake.modules.nixos.server = {
 
     imports = [

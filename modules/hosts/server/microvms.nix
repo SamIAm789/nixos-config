@@ -3,5 +3,8 @@
     microvm.autostart = [
       "immich"
     ];
+    microvmNebula.vms = [
+      "immich-test"
+    ];
   };
 }

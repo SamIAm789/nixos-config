@@ -36,7 +36,7 @@
   {
     imports = [
       inputs.microvm.nixosModules.host
-      self.modules.nixos.nebula-secrets
+      inputs.self.modules.nixos.nebula-secrets
     ];
 
     microvm.host.enable = true;

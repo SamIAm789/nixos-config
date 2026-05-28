@@ -41,6 +41,13 @@
       };
     in
     {
+
+      options.microvmNebula.vms = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = "List of MicroVMs that should receive Nebula secrets.";
+      };
+
       config = lib.mkMerge (map mkVm (config.microvmNebula.vms or []));
     };
 }

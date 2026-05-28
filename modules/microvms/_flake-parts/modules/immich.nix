@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.modules.nixos.immich = {
+  flake.modules.nixos.immich-test = {
 
     imports = [
       inputs.dotfiles.modules.nixos.nebula

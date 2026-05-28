@@ -18,9 +18,6 @@
       environment.systemPackages = [ pkgs.nebula ];
 
       services.nebula.networks.pertaka = {
-        ca   = config.sops.secrets."nebula.ca".path;
-        cert = config.sops.secrets."nebula.${host}.crt".path;
-        key  = config.sops.secrets."nebula.${host}.key".path;
 
         staticHostMap = lib.mkIf (!isLighthouse) {
           "100.100.0.1" = [ lighthouseIP ];

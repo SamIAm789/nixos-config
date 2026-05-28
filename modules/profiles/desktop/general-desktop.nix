@@ -17,7 +17,6 @@
       kdeconnect
       pipewire
       power-management
-      ssh-agent
     ];
 
     environment.systemPackages = with pkgs; [

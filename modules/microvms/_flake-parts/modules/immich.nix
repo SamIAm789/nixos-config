@@ -3,10 +3,13 @@
   ...
 }:
 {
-  flake.modules.microvm.immich = {
+  flake.nixosConfigurations = inputs.self.lib.mkMicroVM "x86_64-linux" "immich-test";
+ 
+  flake.modules.nixos.immich-test = {
 
     imports = [
       inputs.dotfiles.modules.nixos.nebula
+      inputs.self.modules.nixos.nebula
     ];
 
     microvm = {
@@ -30,7 +33,7 @@
         {
           proto = "virtiofs";
           tag = "photos";
-          source = "/stuff/photos";
+          source = "/stuff/immich-test";
           mountPoint = "/stuff/photos";
           socket = "photos.socket";
         }

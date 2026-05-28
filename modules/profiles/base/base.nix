@@ -19,6 +19,7 @@
         nebula-secrets
         nix
         sam
+        ssh-agent
         ssh-keys
         sops
         timezone

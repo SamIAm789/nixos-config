@@ -40,5 +40,10 @@
         mode = "0400";
       };
     };
+    services.nebula.networks.pertaka = {
+      ca = config.sops.secrets."nebula.ca".path;
+      cert = config.sops.secrets."nebula.${host}.crt".path;
+      key  = config.sops.secrets."nebula.${host}.key".path;
+    };
   };
 }

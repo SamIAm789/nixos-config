@@ -43,5 +43,4 @@
     {
       config = lib.mkMerge (map mkVm (config.microvmNebula.vms or []));
     };
-  };
 }

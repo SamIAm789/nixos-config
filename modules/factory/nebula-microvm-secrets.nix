@@ -1,6 +1,5 @@
 {
   flake.factory.nebulaSecrets =
-    { inputs }:
     { vm }:
     let
       # Capture inputs at factory-evaluation time (this is safe)

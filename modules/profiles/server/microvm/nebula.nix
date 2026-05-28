@@ -42,7 +42,7 @@
     in
     {
       config = lib.mkMerge (
-        lib.mapAttrsToList mkVm config.microvm.vms
+        lib.mapAttrsToList mkVm (config.microvm.vms or {})
       );
     };
 }

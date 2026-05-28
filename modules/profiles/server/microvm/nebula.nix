@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.modules.nixos.nebula-microvm =
+  flake.modules.nixos.nebulaMicrovmSecrets =
     {
       config,
       lib,

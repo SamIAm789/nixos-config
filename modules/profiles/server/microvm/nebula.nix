@@ -45,4 +45,5 @@
         lib.mapAttrsToList mkVm (config.microvm.vms or {})
       );
     };
+};
 }

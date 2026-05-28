@@ -1,4 +1,8 @@
 {
+  inputs,
+  ...
+}:
+{
   flake.factory.nebulaSecrets =
     { vm }:
     let

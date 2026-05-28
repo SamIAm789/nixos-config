@@ -23,7 +23,7 @@
 
        modules = [
          inputs.microvm.nixosModules.microvm
-         self.modules.nixos.microvm-base
+         self.modules.nixos.base
          {
            networking.hostName = name;
            nixpkgs.hostPlatform = system;

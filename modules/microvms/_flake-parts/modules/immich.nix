@@ -9,6 +9,7 @@
 
     imports = [
       inputs.dotfiles.modules.nixos.nebula
+      inputs.self.modules.nixos.nebula
     ];
 
     microvm = {

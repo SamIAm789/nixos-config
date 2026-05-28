@@ -22,7 +22,6 @@
 
        modules = [
          inputs.microvm.nixosModules.microvm
-         inputs.sops-nix.nixosModules.sops
          self.modules.nixos.microvm-base
          {
            networking.hostName = name;

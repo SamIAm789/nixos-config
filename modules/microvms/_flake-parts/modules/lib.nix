@@ -12,25 +12,15 @@
 
   config.flake.lib = {
 
-    mkMicroVM =
-     {
-       system ? "x86_64-linux",
-       name,
-       extraModules ? [ ],
-     }:
-     inputs.nixpkgs.lib.nixosSystem {
-       inherit system;
-
-       modules = [
-         inputs.microvm.nixosModules.microvm
-         self.modules.nixos.base
-         {
-           networking.hostName = name;
-           nixpkgs.hostPlatform = system;
-         }
-         self.modules.microvm.${name}
-       ]
-       ++ extraModules;
-     };
+    mkNixos = system: name: {
+      ${name} = inputs.nixpkgs.lib.nixosSystem {
+        modules = [
+          inputs.self.modules.nixos.${name}
+          {
+            nixpkgs.hostPlatform = lib.mkDefault system;
+            networking.hostName = lib.mkDefault name;
+          }
+        ];
+      };
    };
 }

@@ -7,8 +7,8 @@
     { vm }:
     let
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
-      nebulaUid = 998;
-      nebulaGid = 998;
+      nebulaUid = "998";
+      nebulaGid = "998";
     in
     { config, lib, ... }:
     {

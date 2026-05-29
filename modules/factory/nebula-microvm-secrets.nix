@@ -11,6 +11,9 @@
     { config, lib, ... }:
     {
       # Host-only module produced by the factory
+      systemd.tmpfiles.rules = [
+        "d /persist/microvms/state/${vm}/nebula 0750 root root -"
+      ];
 
       sops.secrets."nebula.${vm}.ca" = {
         sopsFile = sopsFile;

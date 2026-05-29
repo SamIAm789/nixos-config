@@ -6,8 +6,9 @@
   flake.factory.nebulaSecrets =
     { vm }:
     let
-      # Capture inputs at factory-evaluation time (this is safe)
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
+      nebulaUid = 998;
+      nebulaGid = 998;
     in
     { config, lib, ... }:
     {
@@ -21,6 +22,8 @@
         key = "nebula/ca";
         path = "/var/lib/microvms/${vm}/nebula/ca.crt";
         mode = "0400";
+        owner = nebulaUid;
+        group = nebulaGid;
       };
 
       sops.secrets."nebula.${vm}.crt" = {
@@ -28,6 +31,8 @@
         key = "nebula/${vm}/crt";
         path = "/var/lib/microvms/${vm}/nebula/host.crt";
         mode = "0400";
+        owner = nebulaUid;
+        group = nebulaGid;
       };
 
       sops.secrets."nebula.${vm}.key" = {
@@ -35,6 +40,8 @@
         key = "nebula/${vm}/key";
         path = "/var/lib/microvms/${vm}/nebula/host.key";
         mode = "0400";
+        owner = nebulaUid;
+        group = nebulaGid;
       };
     };
 }

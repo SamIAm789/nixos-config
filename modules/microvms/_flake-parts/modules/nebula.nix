@@ -30,8 +30,13 @@
       }
     ];
     systemd.tmpfiles.rules = [
-        # directory owned by nebula-pertaka, only it can read it
-        "d /run/secrets/nebula 0750 nebula-pertaka nebula-pertaka -"
+      # Fix directory permissions
+      "z /run/secrets/nebula 0750 nebula-pertaka nebula-pertaka -"
+
+      # Fix file permissions
+      "z /run/secrets/nebula/ca.crt   0400 nebula-pertaka nebula-pertaka -"
+      "z /run/secrets/nebula/host.crt 0400 nebula-pertaka nebula-pertaka -"
+      "z /run/secrets/nebula/host.key 0400 nebula-pertaka nebula-pertaka -"
     ];
   };
 }

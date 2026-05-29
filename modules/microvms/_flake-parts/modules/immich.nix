@@ -47,5 +47,7 @@
       mediaLocation = "/stuff/photos";
       openFirewall = true;
     };
+
+    system.stateVersion = "26.05";
   };
 }

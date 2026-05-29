@@ -27,6 +27,12 @@
         source = "/var/lib/microvms/${config.networking.hostName}/nebula";
         mountPoint = "/run/secrets/nebula";
         readOnly = true;
+        uidMap = [
+          { host = 0; guest = 997; size = 1; }
+        ];
+        gidMap = [
+          { host = 0; guest = 997; size = 1; }
+        ];
       }
     ];
   };

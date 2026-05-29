@@ -22,4 +22,5 @@
       environment.variables.GIT_SSH_COMMAND =
         "ssh -i /etc/ssh/keys/secrets-deploy -o IdentitiesOnly=yes";
   };
+  # written for nixos-anywhere. may not be needed now.
 }

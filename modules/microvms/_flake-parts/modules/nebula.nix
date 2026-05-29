@@ -29,5 +29,9 @@
         readOnly = true;
       }
     ];
+    systemd.tmpfiles.rules = [
+        # directory owned by nebula-pertaka, only it can read it
+        "d /run/secrets/nebula 0750 nebula-pertaka nebula-pertaka -"
+    ];
   };
 }

@@ -28,7 +28,7 @@
       sops.secrets."nebula.${vm}.key" = {
         sopsFile = sopsFile;
         key = "nebula/${vm}/key";
-        path = "run/secrets/nebula/${vm}/host.key";
+        path = "/run/secrets/nebula/${vm}/host.key";
         mode = "0400";
       };
     };

@@ -29,9 +29,5 @@
             readOnly = true;
       }
     ];
-    systemd.tmpfiles.rules = [
-      # Fix directory permissions
-      "d /etc/nebula 0750 nebula-pertaka nebula-pertaka -"
-    ];
   };
 }

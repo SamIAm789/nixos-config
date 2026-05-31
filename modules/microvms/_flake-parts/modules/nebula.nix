@@ -4,11 +4,7 @@
 }:
 {
   flake.modules.nixos.nebula =
-  {
-    config,
-    lib,
-    ...
-  }:
+  { config, lib, ... }:
   {
     imports = [
       inputs.dotfiles.modules.nixos.nebula
@@ -23,10 +19,10 @@
     microvm.shares = [
       {
         proto = "virtiofs";
-            tag = "nebula-secrets";
-            source = "/persist/secrets/nebula/${config.networking.hostName}";
-            mountPoint = "/var/lib/nebula";
-            readOnly = true;
+        tag = "nebula-secrets";
+        source = "/persist/secrets/nebula/${config.networking.hostName}";
+        mountPoint = "/var/lib/nebula";
+        readOnly = true;
       }
     ];
 
@@ -34,10 +30,10 @@
       "d /var/lib/nebula 0750 nebula-pertaka nebula-pertaka -"
     ];
 
-    # Fix ownership and permissions *after* the mount is active
+    # Better ownership fix
     systemd.services.nebula-ownership-fix = {
-      description = "Fix ownership of mounted Nebula secrets";
-      after = [ "microvm-mount-nebula-secrets.service" ];  # adjust if tag changes
+      description = "Fix ownership of Nebula secrets for nebula-pertaka user";
+      after = [ "microvm-mount-nebula-secrets.service" ];
       requires = [ "microvm-mount-nebula-secrets.service" ];
       before = [ "nebula-pertaka.service" ];
       wantedBy = [ "nebula-pertaka.service" ];
@@ -49,10 +45,15 @@
       };
 
       script = ''
-        # The files are owned by root on the host, so we chown them inside the guest namespace
+        echo "Fixing ownership and permissions for Nebula secrets..."
+        ls -la /var/lib/nebula
+
         chown nebula-pertaka:nebula-pertaka /var/lib/nebula/*.crt /var/lib/nebula/*.key 2>/dev/null || true
-        chmod 400 /var/lib/nebula/*.key
         chmod 444 /var/lib/nebula/*.crt
+        chmod 400 /var/lib/nebula/*.key
+
+        echo "Final permissions:"
+        ls -la /var/lib/nebula
       '';
     };
   };

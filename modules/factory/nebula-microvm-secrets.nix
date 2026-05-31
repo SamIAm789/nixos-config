@@ -4,7 +4,7 @@
 }:
 {
   flake.factory.nebulaSecrets =
-    { vm, storageDir ? "/persist/nebula-secrets/${vm}" }:
+    { vm, storageDir ? "/persist/secrets/nebula/${vm}" }:
     { config, lib, ... }:
     let
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";

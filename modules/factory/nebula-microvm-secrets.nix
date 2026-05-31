@@ -33,7 +33,7 @@
       };
 
       systemd.tmpfiles.rules = [
-        "d ${storageDir} 0700 root root -"
+        "d ${storageDir} 0750 nebula-pertaka nebula-pertaka -"
       ];
 
       # Improved copy service - no dependency on missing sops-nix.service
@@ -60,6 +60,9 @@
             ls -la "$SRC" || echo "Directory does not exist"
             exit 1
           fi
+
+          chown 945:945 ${storageDir}
+          chmod 750 ${storageDir}
 
           cp -f "$SRC/ca.crt"     ${storageDir}/ca.crt
           cp -f "$SRC/host.crt"   ${storageDir}/host.crt

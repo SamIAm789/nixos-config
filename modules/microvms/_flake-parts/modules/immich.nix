@@ -5,7 +5,7 @@
 {
   flake.nixosConfigurations = inputs.self.lib.mkMicroVM "x86_64-linux" "immich";
 
-  flake.modules.nixos.immich-test = {
+  flake.modules.nixos.immich = {
 
     imports = [
       inputs.dotfiles.modules.nixos.nebula
@@ -22,7 +22,7 @@
 
       # Persistent root disk (Very Important!)
       volumes = [{
-        image = "/persist/microvms/immich-test/root.img";
+        image = "/persist/microvms/immich/root.img";
         mountPoint = "/";
         size = 16384;           # 16GB
         fsType = "ext4";

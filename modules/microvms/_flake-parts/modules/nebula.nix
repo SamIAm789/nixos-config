@@ -46,7 +46,9 @@
 
       script = ''
         echo "Fixing ownership and permissions for Nebula secrets..."
-        ls -la /var/lib/nebula
+
+        chown nebula-pertaka:nebula-pertaka /var/lib/nebula
+        chmod 750 /var/lib/nebula
 
         chown nebula-pertaka:nebula-pertaka /var/lib/nebula/*.crt /var/lib/nebula/*.key 2>/dev/null || true
         chmod 444 /var/lib/nebula/*.crt

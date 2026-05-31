@@ -22,7 +22,7 @@
         tag = "nebula-secrets";
         source = "/persist/secrets/nebula/${config.networking.hostName}";
         mountPoint = "/var/lib/nebula";
-        readOnly = false;
+        readOnly = true;
       }
     ];
 

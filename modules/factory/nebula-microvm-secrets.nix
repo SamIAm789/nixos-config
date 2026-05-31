@@ -67,7 +67,7 @@
 
           chmod 444 ${storageDir}/*.crt
           chmod 400 ${storageDir}/*.key
-          chown root:root ${storageDir}/*
+          chown 945:945 ${storageDir}/*
 
           echo "✅ Secrets copied successfully to ${storageDir}"
           ls -la ${storageDir}

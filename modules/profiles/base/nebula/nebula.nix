@@ -48,5 +48,12 @@
 
         relays = lib.mkIf (!isLighthouse) [ "100.100.0.1" ];
       };
+
+      users.users.nebula-pertaka = {
+        uid = 945;
+        group = "nebula-pertaka";
+      };
+
+      users.groups.nebula-pertaka.gid = 945;
     };
 }

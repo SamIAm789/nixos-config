@@ -48,5 +48,14 @@
 
         relays = lib.mkIf (!isLighthouse) [ "100.100.0.1" ];
       };
+
+      users.users.nebula = {
+        isSystemUser = true;
+        uid = 945;
+        group = "nebula";
+      };
+
+      users.groups.nebula.gid = 945;
+
     };
 }

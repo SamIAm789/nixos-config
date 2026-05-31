@@ -14,6 +14,8 @@
 
           # sops-nix host AGE keys
           "/var/lib/sops-nix"
+     
+          "nebula-secrets"
 
         ];
 

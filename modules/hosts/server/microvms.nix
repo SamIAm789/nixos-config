@@ -6,7 +6,7 @@
   flake.modules.nixos.server = {
 
     imports = [
-      (self.factory.nebulaSecrets { vm = "immich-test"; })
+      (self.factory.nebulaSecrets { vm = "immich"; })
     ];
 
     microvm.autostart = [

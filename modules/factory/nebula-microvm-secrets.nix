@@ -10,7 +10,7 @@
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
     in
     {
-      # SOPS secrets (ephemeral)
+      # SOPS secrets
       sops.secrets."nebula.${vm}.ca" = {
         sopsFile = sopsFile;
         key = "nebula/ca";
@@ -32,12 +32,11 @@
         mode = "0400";
       };
 
-      # Ensure persistent directory exists
       systemd.tmpfiles.rules = [
         "d ${storageDir} 0700 root root -"
       ];
 
-      # Copy real files (not symlinks) to persistent storage
+      # More reliable copy service
       systemd.services."nebula-secrets-copy-${vm}" = {
         description = "Copy Nebula secrets for ${vm} to persistent storage";
         after = [ "sops-nix.service" ];
@@ -47,16 +46,28 @@
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
+          User = "root";
         };
 
         script = ''
+          echo "=== Starting Nebula secrets copy for ${vm} ==="
           mkdir -p ${storageDir}
+
+          if [ ! -f /run/secrets/nebula/${vm}/ca.crt ]; then
+            echo "ERROR: Source secrets not found in /run/secrets!"
+            exit 1
+          fi
+
           cp -f /run/secrets/nebula/${vm}/ca.crt     ${storageDir}/ca.crt
           cp -f /run/secrets/nebula/${vm}/host.crt   ${storageDir}/host.crt
           cp -f /run/secrets/nebula/${vm}/host.key   ${storageDir}/host.key
 
-          chmod 400 ${storageDir}/*.crt ${storageDir}/*.key
+          chmod 444 ${storageDir}/*.crt
+          chmod 400 ${storageDir}/*.key
           chown root:root ${storageDir}/*
+
+          echo "Secrets successfully copied to ${storageDir}"
+          ls -la ${storageDir}
         '';
       };
     };

@@ -24,7 +24,7 @@
       {
         proto = "virtiofs";
             tag = "nebula-secrets";
-            source = "/persist/microvms/state/${config.networking.hostName}/nebula";
+            source = "/persist/nebula-secrets/${config.networking.hostName}";
             mountPoint = "/var/lib/nebula";
             readOnly = true;
       }

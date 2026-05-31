@@ -10,7 +10,7 @@
       sopsFile = "${inputs.secrets}/secrets/nebula.yaml";
     in
     {
-      # SOPS secrets
+      # SOPS secrets (decrypted to /run/secrets)
       sops.secrets."nebula.${vm}.ca" = {
         sopsFile = sopsFile;
         key = "nebula/ca";
@@ -36,11 +36,11 @@
         "d ${storageDir} 0700 root root -"
       ];
 
-      # More reliable copy service
+      # Improved copy service - no dependency on missing sops-nix.service
       systemd.services."nebula-secrets-copy-${vm}" = {
         description = "Copy Nebula secrets for ${vm} to persistent storage";
-        after = [ "sops-nix.service" ];
-        requires = [ "sops-nix.service" ];
+        after = [ "multi-user.target" ];           # More reliable
+        wants = [ "multi-user.target" ];
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
@@ -50,23 +50,26 @@
         };
 
         script = ''
-          echo "=== Starting Nebula secrets copy for ${vm} ==="
+          echo "=== Nebula secrets copy for ${vm} ==="
           mkdir -p ${storageDir}
 
-          if [ ! -f /run/secrets/nebula/${vm}/ca.crt ]; then
-            echo "ERROR: Source secrets not found in /run/secrets!"
+          SRC="/run/secrets/nebula/${vm}"
+          if [ ! -f "$SRC/ca.crt" ] || [ ! -f "$SRC/host.crt" ] || [ ! -f "$SRC/host.key" ]; then
+            echo "ERROR: Source secrets not found in $SRC"
+            echo "Contents of /run/secrets/nebula/${vm}:"
+            ls -la "$SRC" || echo "Directory does not exist"
             exit 1
           fi
 
-          cp -f /run/secrets/nebula/${vm}/ca.crt     ${storageDir}/ca.crt
-          cp -f /run/secrets/nebula/${vm}/host.crt   ${storageDir}/host.crt
-          cp -f /run/secrets/nebula/${vm}/host.key   ${storageDir}/host.key
+          cp -f "$SRC/ca.crt"     ${storageDir}/ca.crt
+          cp -f "$SRC/host.crt"   ${storageDir}/host.crt
+          cp -f "$SRC/host.key"   ${storageDir}/host.key
 
           chmod 444 ${storageDir}/*.crt
           chmod 400 ${storageDir}/*.key
           chown root:root ${storageDir}/*
 
-          echo "Secrets successfully copied to ${storageDir}"
+          echo "✅ Secrets copied successfully to ${storageDir}"
           ls -la ${storageDir}
         '';
       };

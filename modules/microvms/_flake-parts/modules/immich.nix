@@ -3,7 +3,7 @@
   ...
 }:
 {
-  flake.nixosConfigurations = inputs.self.lib.mkMicroVM "x86_64-linux" "immich-test";
+  flake.nixosConfigurations = inputs.self.lib.mkMicroVM "x86_64-linux" "immich";
 
   flake.modules.nixos.immich-test = {
 

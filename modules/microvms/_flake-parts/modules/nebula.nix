@@ -55,4 +55,5 @@
         chmod 444 /var/lib/nebula/*.crt
       '';
     };
+  };
 }

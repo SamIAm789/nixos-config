@@ -22,7 +22,7 @@
         tag = "nebula-secrets";
         source = "/persist/secrets/nebula/${config.networking.hostName}";
         mountPoint = "/var/lib/nebula";
-        readOnly = true;
+        readOnly = false;
       }
     ];
 
@@ -33,10 +33,10 @@
     # Better ownership fix
     systemd.services.nebula-ownership-fix = {
       description = "Fix ownership of Nebula secrets for nebula-pertaka user";
-      after = [ "microvm-mount-nebula-secrets.service" ];
-      requires = [ "microvm-mount-nebula-secrets.service" ];
-      before = [ "nebula-pertaka.service" ];
-      wantedBy = [ "nebula-pertaka.service" ];
+      after = [ "var-lib-nebula.mount" ];
+      requires = [ "var-lib-nebula.mount" ];
+      before = [ "nebula@pertaka.service" ];
+      wantedBy = [ "nebula@pertaka.service" ];
 
       serviceConfig = {
         Type = "oneshot";
